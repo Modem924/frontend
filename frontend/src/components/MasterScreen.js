@@ -5,7 +5,7 @@ const MasterScreen = () => {
         <div>
             <NavigationBar />
             <div>
-                {/* 나머지 StudentScreen 내용 */}
+                {/* 나머지 내용 */}
             </div>
         </div>
     );
