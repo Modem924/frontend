@@ -4,6 +4,7 @@ import NavigationBar from './NavigationBar';
 import MasterScreen from './MasterScreen';
 import SigninScreen from './SigninScreen';
 import Attendance from './Attendance';
+import ServiceScreen from './ServiceScreen';
 
 export {
     AppPaperScreen,
@@ -11,5 +12,6 @@ export {
     NavigationBar,
     MasterScreen,
     SigninScreen,
-    Attendance
+    Attendance,
+    ServiceScreen
 };
