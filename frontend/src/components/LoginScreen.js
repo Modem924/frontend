@@ -35,7 +35,7 @@ const LoginScreen = () => {
       textAlign: 'center',
     },
     logo: {
-      width: '100px',
+      width: '200px',
       marginBottom: '20px',
     },
     heading: {
