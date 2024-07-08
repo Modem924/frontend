@@ -12,7 +12,7 @@ const LoginScreen = () => {
 
     if (user) {
       alert('Login successful');
-      navigate('/dashboard');
+      navigate('/master');
     } else {
       alert('Invalid email or password');
     }
@@ -128,6 +128,7 @@ const LoginScreen = () => {
           {
             type: 'submit',
             style: styles.button,
+            onClick: () => navigate('/signin'),
             onMouseOver: (e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor,
             onMouseOut: (e) => e.target.style.backgroundColor = styles.button.backgroundColor,
           },
