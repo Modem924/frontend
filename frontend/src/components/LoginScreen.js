@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login } from './api';
 
 const LoginScreen = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(user => user.id === id && user.password === password);
-
-    if (user) {
-      alert('Login successful');
+  const handleLogin = async (e) => {
+    e.preventDefault(); //기본 폼 제출 동작 막기
+    try {
+      console.log('Sending login request...');
+      console.log(id, password)
+      const data = await login(id,password);
+      console.log(data);
+      const { accessToken } = data;
+      //로컬에 토큰 저장
+      localStorage.setItem('jwtToken', accessToken);
+      //애플리케이션에서 관리용 토큰 
+      setToken(data.accessToken);
+      setError('');
       navigate('/master');
-    } else {
-      alert('Invalid email or password');
+    } catch (err) {
+      setError('error, please try again.');
     }
-  };
+
+
+  }; //handleLogin
 
   const styles = {
     body: {
