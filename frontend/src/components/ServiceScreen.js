@@ -5,6 +5,11 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
 const filters = [
     {
@@ -30,9 +35,28 @@ const filters = [
 ];
 
 const ServiceScreen = () => {
+    const [APIData, setAPIData] = useState([]);
+    const [filteredResults, setFilteredResults] = useState([]);
     const [searchInput, setSearchInput] = useState('');
-    const searchItems = () => {
-    }
+
+    useEffect(() => {
+        axios.get(`https://jsonplaceholder.typicode.com/users`)
+            .then((response) => {
+                setAPIData(response.data);
+            });
+    }, []);
+
+    const searchItems = (searchValue) => {
+        setSearchInput(searchValue);
+        if (searchInput !== '') {
+            const filteredData = APIData.filter((item) => {
+                return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase());
+            });
+            setFilteredResults(filteredData);
+        } else {
+            setFilteredResults(APIData);
+        }
+    };
 
     return (
         <div>
@@ -50,7 +74,7 @@ const ServiceScreen = () => {
                         >
                             <TextField
                                 label='Search'
-                                onChange={() => searchItems()}
+                                onChange={(e) => searchItems(e.target.value)}
                                 fullWidth
                             />
                         </Box>
@@ -82,6 +106,98 @@ const ServiceScreen = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <Grid container spacing={3} justifyContent="center" alignItems="center" sx={{ width: '100%', margin: '0 auto' }}>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                                수업1
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                교사1
+                            </Typography>
+                        </CardContent>
+                        <CardActions sx={{ justifyContent: 'center' }}>
+                            <Button size="small">Button</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                                수업2
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                교사1
+                            </Typography>
+                        </CardContent>
+                        <CardActions sx={{ justifyContent: 'center' }}>
+                            <Button size="small">Button</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                                수업3
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                교사1
+                            </Typography>
+                        </CardContent>
+                        <CardActions sx={{ justifyContent: 'center' }}>
+                            <Button size="small">Button</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                                수업1
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                교사1
+                            </Typography>
+                        </CardContent>
+                        <CardActions sx={{ justifyContent: 'center' }}>
+                            <Button size="small">Button</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                                수업2
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                교사1
+                            </Typography>
+                        </CardContent>
+                        <CardActions sx={{ justifyContent: 'center' }}>
+                            <Button size="small">Button</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <Card sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                                수업3
+                            </Typography>
+                            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                교사1
+                            </Typography>
+                        </CardContent>
+                        <CardActions sx={{ justifyContent: 'center' }}>
+                            <Button size="small">Button</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            </Grid>
         </div>
     );
 }
