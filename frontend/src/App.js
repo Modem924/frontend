@@ -7,7 +7,8 @@ import {
   LoginScreen,
   MasterScreen,
   SigninScreen,
-  Attendance
+  Attendance,
+  ServiceScreen
 } from './components';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/master" element={<MasterScreen />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/service" element={<ServiceScreen />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>
