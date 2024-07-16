@@ -1,8 +1,16 @@
+import axios from 'axios';
 import axiosInstance, {logout} from './axiosConfig';
 
 export const login = async (username, password) => {
   //console.log('axios login 함수 호출')
   const response = await axiosInstance.post('/auth/sign-in', { username, password });
+  return response.data;
+};
+
+export const getService = async (eduName, eduDay, eduWorkerPK) => {
+  const response = await axiosInstance.get('/edu/edu-list', {
+    params: { eduName, eduDay, eduWorkerPK },
+  });
   return response.data;
 };
 
