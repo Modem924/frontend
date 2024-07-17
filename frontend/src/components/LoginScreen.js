@@ -1,148 +1,159 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { login } from './api';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "./api";
 
-const LoginScreen = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+const LoginScreen = ({ setToken }) => {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // 오류 상태 추가
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault(); //기본 폼 제출 동작 막기
     try {
-      console.log('Sending login request...');
-      console.log(id, password)
-      const data = await login(id,password);
+      console.log("Sending login request...");
+      console.log(id, password);
+      const data = await login(id, password);
       console.log(data);
       const { accessToken } = data;
       //로컬에 토큰 저장
-      localStorage.setItem('jwtToken', accessToken);
-      //애플리케이션에서 관리용 토큰 
+      localStorage.setItem("jwtToken", accessToken);
+      //애플리케이션에서 관리용 토큰
       setToken(data.accessToken);
-      setError('');
-      navigate('/master');
+      setError("");
+
+      if (accessToken) {
+        alert("Login successful");
+        navigate("/master");
+      } else {
+        alert("Invalid email or password");
+      }
     } catch (err) {
-      setError('error, please try again.');
+      setError("error, please try again.");
     }
-
-
   }; //handleLogin
 
   const styles = {
     body: {
-      backgroundColor: '#DDE1E6',
+      backgroundColor: "#DDE1E6",
       margin: 0,
-      fontFamily: 'Arial, sans-serif',
+      fontFamily: "Arial, sans-serif",
     },
     loginContainer: {
-      width: '300px',
-      margin: '100px auto',
-      padding: '20px',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-      boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-      backgroundColor: '#DDE1E6',
-      textAlign: 'center',
+      width: "300px",
+      margin: "100px auto",
+      padding: "20px",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+      backgroundColor: "#DDE1E6",
+      textAlign: "center",
     },
     logo: {
-      width: '200px',
-      marginBottom: '20px',
+      width: "200px",
+      marginBottom: "20px",
     },
     heading: {
-      textAlign: 'center',
-      marginBottom: '20px',
+      textAlign: "center",
+      marginBottom: "20px",
     },
     inputGroup: {
-      marginBottom: '15px',
+      marginBottom: "15px",
     },
     input: {
-      width: 'calc(100% - 10px)',
-      padding: '8px',
-      border: '1px solid #ccc',
-      borderRadius: '3px',
+      width: "calc(100% - 10px)",
+      padding: "8px",
+      border: "1px solid #ccc",
+      borderRadius: "3px",
     },
     buttonGroup: {
-      marginTop: '20px',
+      marginTop: "20px",
     },
     button: {
-      width: '100%',
-      padding: '8px',
-      border: 'none',
-      borderRadius: '3px',
-      backgroundColor: '#6890cb',
-      color: '#fff',
-      fontSize: '16px',
-      cursor: 'pointer',
-      marginBottom: '10px',
+      width: "100%",
+      padding: "8px",
+      border: "none",
+      borderRadius: "3px",
+      backgroundColor: "#6890cb",
+      color: "#fff",
+      fontSize: "16px",
+      cursor: "pointer",
+      marginBottom: "10px",
     },
     buttonHover: {
-      backgroundColor: '#697077',
+      backgroundColor: "#697077",
     },
   };
 
   return React.createElement(
-    'div',
+    "div",
     { style: styles.loginContainer },
-    React.createElement('img', {
+    React.createElement("img", {
       src: `${process.env.PUBLIC_URL}/DSTJ_logo.png`,
-      alt: 'Logo',
+      alt: "Logo",
       style: styles.logo,
     }),
-    React.createElement('h2', { style: styles.heading }, 'Login'),
+    React.createElement("h2", { style: styles.heading }, "Login"),
     React.createElement(
-      'form',
+      "form",
       null,
       React.createElement(
-        'div',
+        "div",
         { style: styles.inputGroup },
-        React.createElement('input', {
-          type: 'text',
+        React.createElement("input", {
+          type: "text",
           value: id,
           onChange: (e) => setId(e.target.value),
-          id: 'username',
-          name: 'username',
-          placeholder: 'ID',
+          id: "username",
+          name: "username",
+          placeholder: "ID",
           required: true,
           style: styles.input,
         })
       ),
       React.createElement(
-        'div',
+        "div",
         { style: styles.inputGroup },
-        React.createElement('input', {
-          type: 'password',
+        React.createElement("input", {
+          type: "password",
           value: password,
           onChange: (e) => setPassword(e.target.value),
-          id: 'password',
-          name: 'password',
-          placeholder: 'password',
+          id: "password",
+          name: "password",
+          placeholder: "password",
           required: true,
           style: styles.input,
         })
       ),
       React.createElement(
-        'div',
+        "div",
         { style: styles.buttonGroup },
         React.createElement(
-          'button',
+          "button",
           {
             onClick: handleLogin,
             style: styles.button,
-            onMouseOver: (e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor,
-            onMouseOut: (e) => e.target.style.backgroundColor = styles.button.backgroundColor,
+            onMouseOver: (e) =>
+              (e.target.style.backgroundColor =
+                styles.buttonHover.backgroundColor),
+            onMouseOut: (e) =>
+              (e.target.style.backgroundColor = styles.button.backgroundColor),
           },
-          'Login'
+          "Login"
         ),
         React.createElement(
-          'button',
+          "button",
           {
-            type: 'submit',
+            type: "submit",
             style: styles.button,
-            onClick: () => navigate('/signin'),
-            onMouseOver: (e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor,
-            onMouseOut: (e) => e.target.style.backgroundColor = styles.button.backgroundColor,
+            onClick: () => navigate("/signupscreen"),
+            onMouseOver: (e) =>
+              (e.target.style.backgroundColor =
+                styles.buttonHover.backgroundColor),
+            onMouseOut: (e) =>
+              (e.target.style.backgroundColor = styles.button.backgroundColor),
           },
-          'Signup'
+          "Signup"
         )
       )
     )
