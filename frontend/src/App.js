@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import { SnackbarProvider } from 'notistack';
 import {
   AppPaperScreen,
   LoginScreen,
@@ -11,7 +10,8 @@ import {
   ServiceScreen,
   SignupScreen,
   Logout,
-  Testy
+  Testy,
+  IndividualService
 } from "./components";
 
 const App = () => {
@@ -29,6 +29,7 @@ const App = () => {
           <Route path="/signupscreen" element={<SignupScreen />} />
           <Route path="/testy" element={<Testy />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
+          <Route path="/api/edu/:eduPK/members" element={<IndividualService />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>

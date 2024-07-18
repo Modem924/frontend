@@ -4,20 +4,20 @@ import React from "react";
 const style = {
     paperContainer: {
         backgroundColor: "#F2F4F8",
-		height:"100%",
-        width:"100%",
-        zIndex:"0",
-        position: "absolute"
-		
+        height: "100vh",
+        width: "100%",
+        zIndex: "0",
+        position: "absolute",
+        overflow: "auto",
     }
 };
 
 const AppPaperScreen = (props) => {
-	return (
-		<Paper style={style.paperContainer}>
+    return (
+        <Paper style={style.paperContainer}>
             {props.children}
-		</Paper>
-	);
+        </Paper>
+    );
 };
 
 export default AppPaperScreen;
