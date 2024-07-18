@@ -11,13 +11,14 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    //console.log("axios config 요청 부분");
+    console.log("axios config 요청 부분");
     if (config.url !== "/auth/sign-in" || config.url !== "/auth/sign-up") {
       //login
-      const token = localStorage.getItem("token");
-      if (token) {
-        //console.log('헤더에 토큰 심기')
-        config.headers["Authorization"] = `Bearer ${token}`;
+      const jwtToken = localStorage.getItem("jwtToken");
+      console.log(jwtToken);
+      if (jwtToken) {
+        console.log("헤더에 토큰 심기");
+        config.headers["Authorization"] = `Bearer ${jwtToken}`;
       }
     }
 
