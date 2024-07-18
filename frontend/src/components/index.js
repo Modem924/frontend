@@ -8,6 +8,7 @@ import ServiceScreen from "./ServiceScreen";
 import SignupScreen from "./SignupScreen";
 import Logout from "./Logout";
 import Testy from "./Testy";
+import ManagerScreen from "./ManagerScreen";
 
 export {
   AppPaperScreen,
@@ -19,5 +20,6 @@ export {
   ServiceScreen,
   SignupScreen,
   Logout,
-  Testy
+  Testy,
+  ManagerScreen,
 };
