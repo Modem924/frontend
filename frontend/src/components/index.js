@@ -7,6 +7,7 @@ import Attendance from "./Attendance";
 import ServiceScreen from "./ServiceScreen";
 import SignupScreen from "./SignupScreen";
 import Logout from "./Logout";
+import Testy from "./Testy";
 
 export {
   AppPaperScreen,
@@ -18,4 +19,5 @@ export {
   ServiceScreen,
   SignupScreen,
   Logout,
+  Testy
 };

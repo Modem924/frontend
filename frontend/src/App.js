@@ -11,6 +11,7 @@ import {
   ServiceScreen,
   SignupScreen,
   Logout,
+  Testy
 } from "./components";
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/service" element={<ServiceScreen />} />
           <Route path="/signupscreen" element={<SignupScreen />} />
+          <Route path="/testy" element={<Testy />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
         </Routes>
       </AppPaperScreen>
