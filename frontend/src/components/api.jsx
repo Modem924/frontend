@@ -33,22 +33,37 @@ export const signup = async (
     placeName,
     placeType,
   });
+  
+  const { userRole: roleFromResponse, userPK, username: nameFromResponse } = response.data;
+
+  localStorage.setItem('userRole', roleFromResponse);
+  localStorage.setItem('userPK', userPK);
+  localStorage.setItem('username', nameFromResponse);
+
   return response.data;
 };
 
-export const getService = async (eduPK, eduDay, eduStart, eduEnd, eduName, eduPlacePK, eduWorkerPK) => {
+export const getService = async (eduName, eduDay) => {
+  console.log('불러와지나?')
   const response = await axiosInstance.get('/edu/edu-list', {
-    params: { eduPK, eduDay, eduStart, eduEnd, eduName, eduPlacePK, eduWorkerPK },
+    params: { eduName, eduDay },
   });
   return response.data;
 };
 
-export const addService = async (eduName, eduDay, eduStart, eduEnd, workerId) => {
+export const addService = async (eduName, eduDay, eduStart, eduEnd) => {
+  const workerId = localStorage.getItem('username');
+  
+  if (!workerId) {
+    throw new Error('User is not logged in.');
+  }
+
   const response = await axiosInstance.post('/add_edu', {
     eduName, eduDay, eduStart, eduEnd, workerId
   });
+
   return response.data;
-}
+};
 
 //앞으로 해야할 작업
 // export const fetchData = async () => {
