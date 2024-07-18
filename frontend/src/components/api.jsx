@@ -7,13 +7,19 @@ export const login = async (username, password) => {
   return response.data;
 };
 
-export const getService = async (eduName, eduDay, eduWorkerPK) => {
+export const getService = async (eduPK, eduDay, eduStart, eduEnd, eduName, eduPlacePK, eduWorkerPK) => {
   const response = await axiosInstance.get('/edu/edu-list', {
-    params: { eduName, eduDay, eduWorkerPK },
+    params: { eduPK, eduDay, eduStart, eduEnd, eduName, eduPlacePK, eduWorkerPK },
   });
   return response.data;
 };
 
+export const addService = async (eduName, eduDay, eduStart, eduEnd, workerId) => {
+  const response = await axiosInstancel.post('/add_edu', {
+    eduName, eduDay, eduStart, eduEnd, workerId
+  });
+  return response.data;
+}
 //앞으로 해야할 작업 
 // export const fetchData = async () => {
 //   const response = await axiosInstance.get('/data');

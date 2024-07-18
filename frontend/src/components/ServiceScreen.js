@@ -119,7 +119,7 @@ const ServiceScreen = () => {
                                     {item.eduName}
                                 </Typography>
                                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                    {item.eduWorkerPK}
+                                    {item.eduDay}
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'center' }}>
