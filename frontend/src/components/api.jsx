@@ -1,3 +1,5 @@
+import axios from 'axios';
+import axiosInstance, {logout} from './axiosConfig';
 import axiosInstance, { logout } from "./axiosConfig";
 
 export const login = async (username, password) => {
@@ -34,6 +36,20 @@ export const signup = async (
   });
   return response.data;
 };
+
+export const getService = async (eduPK, eduDay, eduStart, eduEnd, eduName, eduPlacePK, eduWorkerPK) => {
+  const response = await axiosInstance.get('/edu/edu-list', {
+    params: { eduPK, eduDay, eduStart, eduEnd, eduName, eduPlacePK, eduWorkerPK },
+  });
+  return response.data;
+};
+
+export const addService = async (eduName, eduDay, eduStart, eduEnd, workerId) => {
+  const response = await axiosInstancel.post('/add_edu', {
+    eduName, eduDay, eduStart, eduEnd, workerId
+  });
+  return response.data;
+}
 
 //앞으로 해야할 작업
 // export const fetchData = async () => {

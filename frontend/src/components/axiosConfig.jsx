@@ -1,7 +1,6 @@
 //모든 요청에 대해 공통적인 설정!
 import axios from "axios";
 
-//const API_URL = 'http://13.125.77.44:8080';
 const API_URL =
   "http://dstj-env.eba-bienmeha.ap-northeast-2.elasticbeanstalk.com";
 
