@@ -9,6 +9,7 @@ import SignupScreen from "./SignupScreen";
 import Logout from "./Logout";
 import Testy from "./Testy";
 import IndividualService from "./IndividualService";
+import ReportScreen from "./ReportScreen";
 
 export {
   AppPaperScreen,
@@ -21,5 +22,6 @@ export {
   SignupScreen,
   Logout,
   Testy,
-  IndividualService
+  IndividualService,
+  ReportScreen
 };

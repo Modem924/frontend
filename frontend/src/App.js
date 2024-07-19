@@ -11,7 +11,8 @@ import {
   SignupScreen,
   Logout,
   Testy,
-  IndividualService
+  IndividualService,
+  ReportScreen
 } from "./components";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/service" element={<ServiceScreen />} />
           <Route path="/signupscreen" element={<SignupScreen />} />
           <Route path="/testy" element={<Testy />} />
+          <Route path="/report" element={<ReportScreen />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
           <Route path="/api/edu/:eduPK/members" element={<IndividualService />} />
         </Routes>
