@@ -11,7 +11,10 @@ import {
   SignupScreen,
   Logout,
   Testy,
-  IndividualService
+  IndividualService,
+  HealthDataAnalyzer,
+  FaceDetection,
+  UploadVer1,
 } from "./components";
 
 const App = () => {
@@ -30,6 +33,9 @@ const App = () => {
           <Route path="/testy" element={<Testy />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
           <Route path="/api/edu/:eduPK/members" element={<IndividualService />} />
+          <Route path="/upload" element={<UploadVer1 />} />
+          <Route path="/analyze" element={<HealthDataAnalyzer />} />
+          <Route path="/face-detection" element={<FaceDetection />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>

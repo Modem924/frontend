@@ -6,30 +6,27 @@ body {
   padding: 0;
   height: 100vh;
   width: 100vw;
-  display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* FaceDetection 컴포넌트 설정 */
 .face-detection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90%;
+  width: 100%;
   max-width: 800px;
   margin: auto;
+  text-align: center;
 }
 
 /* 헤더 설정 */
 header {
   width: 100%;
+  max-width: 800px;
   text-align: center;
-  margin-bottom: 20px;
-  background-color: #004d40;
-  padding: 20px 0;
-  border-radius: 8px 8px 0 0;
+  margin: auto;
+  box-sizing: border-box;
 }
 
 /* 제목 스타일 */
@@ -41,15 +38,14 @@ h1 {
 
 /* 컨테이너 설정 */
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
+  max-width: 800px;
+  margin: auto;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 8px 8px;
+  box-sizing: border-box;
 }
 
 /* 비디오와 캔버스를 겹치도록 설정 */
@@ -62,6 +58,7 @@ h1 {
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
 
 video, canvas {
@@ -109,11 +106,13 @@ video, canvas {
 
 .message {
   font-size: 22px;
-  width: 500px;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
   color: #2c3e50;
   font-weight: 700;
   margin-bottom: 15px;
-  text-align:center;
+  text-align: center;
 }
 
 .name {
@@ -133,7 +132,9 @@ video, canvas {
 }
 
 .loading {
-  display: flex;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -155,4 +156,9 @@ video, canvas {
   font-weight: 500;
   color: #2c3e50;
   font-size: 14px;
+}
+
+/* 기본 스타일 초기화 */
+* {
+  box-sizing: border-box;
 }

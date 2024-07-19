@@ -319,8 +319,9 @@ import React, {useEffect, useState } from 'react';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
-import './Upload_ver1.css';
+import './css/Upload_ver1.css';
 import styled from "styled-components";
+import NavigationBar from './NavigationBar';
 // import { useEffect, useState } from "react";
 
 const Base = styled.div`
@@ -542,78 +543,81 @@ const OcrComponent = () => {
 
 
   return (
-    <Base className="slider">
-      <SliderObject>
-        <FormContainer>
-          <h1>데이터 가져오기</h1>
-          <div className="file-input">
-            <input id="file-upload" type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload} disabled={loading}>파일 업로드</button>
+    <div>
+      <NavigationBar />
+        <Base className="slider">
+          <SliderObject>
+            <FormContainer>
+              <h1>데이터 가져오기</h1>
+              <div className="file-input">
+                <input id="file-upload" type="file" onChange={handleFileChange} />
+                <button onClick={handleUpload} disabled={loading}>파일 업로드</button>
+              </div>
+          {loading && <div className="loader-container"><ClipLoader color="#4CAF50" loading={loading} size={50} /></div>}
+          {error && <p className="error">{error}</p>}
+          {message && <p className="message">{message}</p>}
+          <form>
+            <div className="form-group">
+              <label htmlFor="user_id">ID</label>
+              <input type="text" name="user_id" value={formData.user_id} onChange={handleChange} placeholder="ID" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="sex">성별</label>
+              <input type="text" name="sex" value={formData.sex} onChange={handleChange} placeholder="성별" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="job">직업</label>
+              <input type="text" name="job" value={formData.job} onChange={handleChange} placeholder="직업" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="height">신장 (cm)</label>
+              <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="신장 (cm)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="weight">체중 (kg)</label>
+              <input type="number" name="weight" value={formData.weight} onChange={handleChange} placeholder="체중 (kg)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="age">나이</label>
+              <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="나이" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="total_body_water">체수분 (%)</label>
+              <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (%)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="protein">단백질 (%)</label>
+              <input type="number" name="protein" value={formData.protein} onChange={handleChange} placeholder="단백질 (%)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="minerals">무기질 (%)</label>
+              <input type="number" name="minerals" value={formData.minerals} onChange={handleChange} placeholder="무기질 (%)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="body_fat_mass">체지방량 (%)</label>
+              <input type="number" name="body_fat_mass" value={formData.body_fat_mass} onChange={handleChange} placeholder="체지방량 (%)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="skeletal_muscle_mass">골격근량 (%)</label>
+              <input type="number" name="skeletal_muscle_mass" value={formData.skeletal_muscle_mass} onChange={handleChange} placeholder="골격근량 (%)" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="purpose">운동 목적</label>
+              <input type="text" name="purpose" value={formData.purpose} onChange={handleChange} placeholder="운동 목적" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="date">측정날짜</label>
+              <input type="date" name="date" value={formData.date} onChange={handleChange} placeholder="측정날짜" />
+            </div>
+          </form>
+          <div className="buttons">
+            <button onClick={fetchOcrData} disabled={loading}>데이터 가져오기</button>
+            <button onClick={handleSubmit} disabled={loading}>DB에 저장</button>
           </div>
-      {loading && <div className="loader-container"><ClipLoader color="#4CAF50" loading={loading} size={50} /></div>}
-      {error && <p className="error">{error}</p>}
-      {message && <p className="message">{message}</p>}
-      <form>
-        <div className="form-group">
-          <label htmlFor="user_id">ID</label>
-          <input type="text" name="user_id" value={formData.user_id} onChange={handleChange} placeholder="ID" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="sex">성별</label>
-          <input type="text" name="sex" value={formData.sex} onChange={handleChange} placeholder="성별" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="job">직업</label>
-          <input type="text" name="job" value={formData.job} onChange={handleChange} placeholder="직업" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="height">신장 (cm)</label>
-          <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="신장 (cm)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="weight">체중 (kg)</label>
-          <input type="number" name="weight" value={formData.weight} onChange={handleChange} placeholder="체중 (kg)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="age">나이</label>
-          <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="나이" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="total_body_water">체수분 (%)</label>
-          <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (%)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="protein">단백질 (%)</label>
-          <input type="number" name="protein" value={formData.protein} onChange={handleChange} placeholder="단백질 (%)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="minerals">무기질 (%)</label>
-          <input type="number" name="minerals" value={formData.minerals} onChange={handleChange} placeholder="무기질 (%)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="body_fat_mass">체지방량 (%)</label>
-          <input type="number" name="body_fat_mass" value={formData.body_fat_mass} onChange={handleChange} placeholder="체지방량 (%)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="skeletal_muscle_mass">골격근량 (%)</label>
-          <input type="number" name="skeletal_muscle_mass" value={formData.skeletal_muscle_mass} onChange={handleChange} placeholder="골격근량 (%)" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="purpose">운동 목적</label>
-          <input type="text" name="purpose" value={formData.purpose} onChange={handleChange} placeholder="운동 목적" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="date">측정날짜</label>
-          <input type="date" name="date" value={formData.date} onChange={handleChange} placeholder="측정날짜" />
-        </div>
-      </form>
-      <div className="buttons">
-        <button onClick={fetchOcrData} disabled={loading}>데이터 가져오기</button>
-        <button onClick={handleSubmit} disabled={loading}>DB에 저장</button>
-      </div>
-      </FormContainer>
-      </SliderObject>
-    </Base>
+          </FormContainer>
+          </SliderObject>
+        </Base>
+    </div>
   );
 };
 

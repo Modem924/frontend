@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ReactTyped as Typed } from 'react-typed';
-import '../HealthDataAnalyzer.css';
+import NavigationBar from './NavigationBar';
+import './css/HealthDataAnalyzer.css';
 
 const HealthDataAnalyzer = () => {
   const [userId, setUserId] = useState('');
@@ -30,26 +31,29 @@ const HealthDataAnalyzer = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Health Data Analyzer</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={userId}
-          onChange={handleInputChange}
-          placeholder="User ID를 입력하세요"
-        />
-        <button type="submit">분석하기</button>
-      </form>
-      {loading && <div className="loader"></div>}
-      {result && !loading && (
-        <div className="result">
-          <Typed
-            strings={[result]}
-            typeSpeed={30}
-          />
+    <div>
+      <NavigationBar />
+        <div className="container">
+          <h1>Health Data Analyzer</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={userId}
+              onChange={handleInputChange}
+              placeholder="User ID를 입력하세요"
+            />
+            <button type="submit">분석하기</button>
+          </form>
+          {loading && <div className="loader"></div>}
+          {result && !loading && (
+            <div className="result">
+              <Typed
+                strings={[result]}
+                typeSpeed={30}
+              />
+            </div>
+          )}
         </div>
-      )}
     </div>
   );
 };

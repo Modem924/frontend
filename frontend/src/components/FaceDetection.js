@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as faceapi from 'face-api.js';
-import './FaceDetection.css';
+import './css/FaceDetection.css';
+import NavigationBar from './NavigationBar';
 
 const FaceDetection = () => {
   const videoRef = useRef(null);
@@ -100,37 +101,40 @@ const FaceDetection = () => {
   }, []);
 
   return (
-    <div className="face-detection">
-      <header className="app-header">
-        <h1>얼굴 인식 출석 체크</h1>
-      </header>
-      <div className="container">
-        <div className="video-wrapper">
-          <video ref={videoRef} autoPlay muted className="video" />
-          <canvas ref={canvasRef} className="canvas" />
-        </div>
-        <div className="results-container">
-          {isLoading ? (
-            <div className="message loading">
-              <div className="loading-icon"></div>
-              <p>얼굴을 인식하는 중...</p>
+    <div>
+      <NavigationBar />
+        <div className="face-detection">
+          <header className="app-header">
+            <h1>얼굴 인식 출석 체크</h1>
+          </header>
+          <div className="container">
+            <div className="video-wrapper">
+              <video ref={videoRef} autoPlay muted className="video" />
+              <canvas ref={canvasRef} className="canvas" />
             </div>
-          ) : results.length > 0 ? (
-            results.map((result, index) => (
-              <div key={index} className="message result">
-                <p className="result-message">{result.message}</p>
-                {result.user_nickname && <p className="result-name">이름: {result.user_nickname}</p>}
-                {result.timestamp && <p className="result-time">시간: {new Date(result.timestamp).toLocaleString()}</p>}
-                {result.error && <p className="result-error">오류: {result.error}</p>}
-              </div>
-            ))
-          ) : (
-            <div className="message info">
-              <p>카메라에 얼굴을 비춰주세요.</p>
+            <div className="results-container">
+              {isLoading ? (
+                <div className="message loading">
+                  <div className="loading-icon"></div>
+                  <p>얼굴을 인식하는 중...</p>
+                </div>
+              ) : results.length > 0 ? (
+                results.map((result, index) => (
+                  <div key={index} className="message result">
+                    <p className="result-message">{result.message}</p>
+                    {result.user_nickname && <p className="result-name">이름: {result.user_nickname}</p>}
+                    {result.timestamp && <p className="result-time">시간: {new Date(result.timestamp).toLocaleString()}</p>}
+                    {result.error && <p className="result-error">오류: {result.error}</p>}
+                  </div>
+                ))
+              ) : (
+                <div className="message info">
+                  <p>카메라에 얼굴을 비춰주세요.</p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
-      </div>
     </div>
   );
 };
