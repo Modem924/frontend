@@ -28,10 +28,10 @@ const App = () => {
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/service" element={<ServiceScreen />} />
           <Route path="/signupscreen" element={<SignupScreen />} />
-          <Route path="/testy" element={<Testy />} />
-          <Route path="/report" element={<ReportScreen />} />
+          <Route path="/testy/:userPK" element={<Testy />} />
+          <Route path="/report/:userPK" element={<ReportScreen />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
-          <Route path="/api/edu/:eduPK/members" element={<IndividualService />} />
+          <Route path="/:eduPK/members" element={<IndividualService />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>
