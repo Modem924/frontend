@@ -16,6 +16,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Pagination from '@mui/material/Pagination';
 import { getService, addService } from './api';
 
+const workerId = localStorage.getItem('username');
+console.log('workerid: ', workerId);
 const filters = [
   { value: '', label: 'All' },
   { value: '월', label: '월요일' },
@@ -23,7 +25,7 @@ const filters = [
   { value: '수', label: '수요일' },
   { value: '목', label: '목요일' },
   { value: '금', label: '금요일' },
-  { value: 'workerId', label: '내 수업' },
+  { value: workerId, label: '내 수업' },
 ];
 
 const itemsPerPage = 9;

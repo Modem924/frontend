@@ -42,7 +42,7 @@ export const getService = async () => {
 };
 
 export const addService = async (eduName, eduDay, eduStart, eduEnd, workerId, eduTuition) => {
-  const response = await axiosInstance.post('/edu/add_edu', {
+  const response = await axiosInstance.post('/add_edu', {
     eduName, eduDay, eduStart, eduEnd, workerId, eduTuition
   });
 
@@ -58,6 +58,41 @@ export const getServiceMembers = async (eduPK) => {
     throw error;
   }
 };
+
+export const deleteService = async (eduPK) => {
+  const response = await axiosInstance.post('/del_edu', { eduPK });
+  return response.data;
+};
+
+export const updateService = async (eduPK, eduName, eduDay, eduStart, eduEnd) => {
+  const response = await axiosInstance.put('/edit/edu', { 
+    eduPK, 
+    eduName, 
+    eduDay, 
+    eduStart, 
+    eduEnd 
+  });
+  return response.data;
+};
+
+export const addMember = async (eduPK, memberId) => {
+  const response = await axiosInstance.post('/add_takes', { 
+    eduPK, 
+    memberId 
+  });
+  return response.data;
+};
+
+export const deleteMember = async (eduPK, memberId) => {
+  try {
+    const response = await axiosInstance.post('/del_takes', { eduPK, memberId });
+    return response.data;
+  } catch (error) {
+    console.error('Error in deleteMember API call:', error.response || error.message);
+    throw error;
+  }
+};
+
 
 export const userLogout = () => {
   logout();
