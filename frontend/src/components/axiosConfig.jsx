@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
 );
 
 export const logout = () => {
-  localStorage.removeItem("token");
+  localStorage.removeItem("jwtToken");
 };
 
 export default axiosInstance;
