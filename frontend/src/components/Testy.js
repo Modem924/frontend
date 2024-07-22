@@ -1,57 +1,37 @@
-import { useEffect, useState } from 'react';
-import NavigationBar from './NavigationBar';
-import { getService } from './api';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getMemberDetails } from './api'; // API 호출 함수
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const Testy = () => {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+  const { userPK } = useParams();
+  const [memberDetails, setMemberDetails] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getService();
-                if (response.length > 0) {
-                    setData(response[0]); // 첫 번째 항목만 설정
-                    console.log('this is res', response[0]);
-                } else {
-                    setData(null);
-                    console.log('this is else');
-                }
-            } catch (err) {
-                setError(err.message);
-                console.error('Failed to fetch data:', err);
-            }
-        };
+  useEffect(() => {
+    getMemberDetails(userPK)
+      .then((response) => {
+        const { data } = response;
+        setMemberDetails(data.meminfo);
+      })
+      .catch((error) => {
+        console.error('Error fetching member details:', error);
+      });
+  }, [userPK]);
 
-        fetchData();
-    }, []);
+  if (!memberDetails) return <Typography>Loading...</Typography>;
 
-    return (
-        <div>
-            <NavigationBar />
-            <div>
-                <h1>API Test</h1>
-                {error ? (
-                    <div>Error: {error}</div>
-                ) : (
-                    <div>
-                        {!data ? (
-                            <div>Loading...</div>
-                        ) : (
-                            <div>
-                                <strong>Name:</strong> {data.eduName} <br />
-                                <strong>Day:</strong> {data.eduDay} <br />
-                                <strong>Start:</strong> {data.eduStart} <br />
-                                <strong>End:</strong> {data.eduEnd} <br />
-                                <strong>PlacePK:</strong> {data.placePK} <br />
-                                <strong>WorkerPK:</strong> {data.workerPK} <br />
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+  return (
+    <Box sx={{ p: 3, width: '50%', margin: '0 auto' }}>
+      <Typography variant="h4" gutterBottom>
+        Member Details
+      </Typography>
+      <Typography variant="h6">Username: {memberDetails.username}</Typography>
+      <Typography variant="h6">Nickname: {memberDetails.userNickname}</Typography>
+      <Typography variant="h6">Address: {memberDetails.userAddress}</Typography>
+      <Typography variant="h6">Phone Number: {memberDetails.userPhoneNumber}</Typography>
+    </Box>
+  );
 };
 
 export default Testy;
