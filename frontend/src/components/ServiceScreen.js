@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Pagination from '@mui/material/Pagination';
+import Checkbox from '@mui/material/Checkbox';
 import { getService, addService } from './api';
 
 const workerId = localStorage.getItem('username');
@@ -107,7 +108,7 @@ const ServiceScreen = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handleCardClick = (eduPK) => {
+  const handleTypographyClick = (eduPK) => {
     console.log('Clicked eduPK:', eduPK);
     navigate(`/${eduPK}/members`);
   };
@@ -164,10 +165,14 @@ const ServiceScreen = () => {
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card 
               sx={{ maxWidth: '90%', margin: '0 auto', height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
-              onClick={() => handleCardClick(item.eduPK)}
             >
-              <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
-                <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+              <CardContent sx={{ textAlign: 'center', flexGrow: 1, position: 'relative' }}>
+                <Typography 
+                  sx={{ fontSize: 20, cursor: 'pointer' }} 
+                  color="text.secondary" 
+                  gutterBottom
+                  onClick={() => handleTypographyClick(item.eduPK)}
+                >
                   {item.eduName}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -176,6 +181,12 @@ const ServiceScreen = () => {
                 <Typography sx={{ mb: 1 }} color="text.secondary">
                   {item.eduStart} ~ {item.eduEnd}
                 </Typography>
+                <Box sx={{ position: 'absolute', top: 10, right: 10 }}>
+                  <Checkbox
+                    color="primary"
+                    onClick={(e) => e.stopPropagation()} // Prevent card click when checkbox is clicked
+                  />
+                </Box>
               </CardContent>
             </Card>
           </Grid>
