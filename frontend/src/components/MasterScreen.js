@@ -2,20 +2,26 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { LineChart } from "@mui/x-charts/LineChart";
-import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider,useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { BarChart } from '@mui/x-charts/BarChart';
 import { getMasterMain } from './api';
 import NavigationBar from "./NavigationBar";
-import '../index.css';  
+import '../index.css'; 
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const MasterScreen = () => {
   const [masterData, setMasterData] = useState(null);
@@ -45,7 +51,17 @@ const MasterScreen = () => {
       },
     },
   });
+  
 
+  const navItems = [
+    { label: "Home", path: "/master" },
+    { label: "Workers", path: "/workerscreen" },
+    { label: "Upload", path: "/upload" },
+    { label: "FaceDetection", path: "/face-detection" },
+    { label: "Analyzer", path: "/analyze" },
+    { label: "Service", path: "/service" },
+    { label: "Attendance", path: "/attendance" },
+  ];
   const styles = {
     body: {
       fontFamily: "Arial, sans-serif",
@@ -120,6 +136,10 @@ const MasterScreen = () => {
       width: "100%",
       height: "auto",
     },
+    label:{
+      backgroundColor:"#DAE6F4",
+      borderRadius:"8px",
+    }
   };
 
   const chartSetting = {
@@ -161,7 +181,7 @@ const MasterScreen = () => {
       <BarChart
         dataset={dataset}
         xAxis={[{ label: 'Month', scaleType: 'band', dataKey: 'month' }]}
-        yAxis={[{ label: 'Revenue (₩)', dataKey: 'revenue' }]}
+        yAxis={[{ label: '', dataKey: 'revenue' }]}
         series={[{ dataKey: 'revenue', label: 'Revenue', valueFormatter, color: "#a1bbde" }]}
         layout="vertical"
         width={1000}
@@ -286,19 +306,18 @@ const MasterScreen = () => {
       />
     );
   }
-
   function TypoTitle({ input_text }) {
+    const theme = useTheme(); // Use the theme
     const localTheme = createTheme({
       typography: {
-        h6: {
-          fontSize: "1.2rem",
+        h7: {
+          fontSize: "14px", // 기본 폰트 사이즈 14px로 수정
           "@media (min-width:600px)": {
             fontSize: "1.5rem",
           },
           [theme.breakpoints.up("md")]: {
             fontSize: "2rem",
           },
-          fontFamily: "Anton SC, sans-serif", // Anton SC 폰트 적용
         },
       },
     });
@@ -310,19 +329,161 @@ const MasterScreen = () => {
     );
   }
 
+  function NavigationBar() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+  
+    const handleDrawerToggle = () => {
+      setMobileOpen(!mobileOpen);
+    };
+  
+    const drawer = (
+      <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+        <List>
+          {navItems.map((item) => (
+            <ListItem key={item.label} disablePadding>
+              <ListItemButton component={Link} to={item.path}>
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/logout">
+              <ListItemText primary="로그아웃" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
+    );
+  
+    return (
+      <Box sx={{ display: 'flex', width: '100%' }}>
+        <CssBaseline />
+        <AppBar component="nav" 
+                sx={{ 
+                    backgroundColor: '#FFFFFF', 
+                    boxShadow: 'none', 
+                    borderBottom: '1px solid #E0E0E0' 
+                    }}>
+          <Toolbar sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    padding: '0 16px', 
+                    minHeight: '85px !important' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ display: { md: 'none' }, color: '#000' }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <img src={require('./../util/logo.png')} alt="Logo" style={{ width: "100px", marginLeft: '16px' }} />
+            </Box>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', flexGrow: 1 }}>
+              {navItems.map((item) => (
+                <Button
+                  key={item.label}
+                  component={Link}
+                  to={item.path}
+                  sx={{ color: '#333333', fontSize: '16px', fontWeight: 'bold', textTransform: 'none', margin: '0 12px' }}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '12px' }}>
+              <Button
+                component={Link}
+                to="/logout"
+                sx={{ 
+                  color: '#344889', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: 'white', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #344889', 
+                  '&:hover': { backgroundColor: '#e0e0e0' } 
+                }}
+              >
+                직원관리
+              </Button>
+              <Button
+                component={Link}
+                to="/logout"
+                sx={{ 
+                  color: '#344889', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: 'white', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #344889', 
+                  '&:hover': { backgroundColor: '#e0e0e0' } 
+                }}
+              >
+                고객관리
+              </Button>
+              <Button
+                component={Link}
+                to="/logout"
+                sx={{ 
+                  color: 'white', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: '#344889', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  '&:hover': { backgroundColor: '#555555' } 
+                }}
+              >
+                로그아웃
+              </Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box component="main" sx={{ p: 3 }}>
+          <Toolbar />
+        </Box>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+    );
+  }
   return (
     <>
-      <NavigationBar />
+      <NavigationBar/>
       <div style={styles.mainPage}>
+        <h2>{'{'+'TITLE OF THE DOCUMENT'+'}'}</h2>
         <div style={styles.dashboard}>
           <div style={styles.section}>
             <div style={{
+              display : 'inline-block', // 텍스트 크기에 맞춰 크기 조절
               backgroundColor:"#DAE6F4",
-              borderRadius:"10px",
+              borderRadius:"8px",
+              padding: "10px 20px", // 패딩 추가하여 여백 확보
             }}>
-            <TypoTitle input_text={"고객 등록"} />
+              <TypoTitle input_text={"등록 고객"} />
             </div>
-            
             <div style={styles.registerSection}>
               <div style={styles.section_in_classLine}>
                 <ClassLine />
@@ -330,13 +491,27 @@ const MasterScreen = () => {
             </div>
           </div>
           <div style={styles.section}>
-            <TypoTitle input_text={"클래스 비율"} />
+            <div style={{
+              display : 'inline-block', // 텍스트 크기에 맞춰 크기 조절
+              backgroundColor:"#DAE6F4",
+              borderRadius:"8px",
+              padding: "10px 20px", // 패딩 추가하여 여백 확보
+            }}>
+              <TypoTitle input_text={"클래스 비율"} />
+            </div>
             <div style={styles.section_in}>
               <PieEx />
             </div>
           </div>
           <div style={styles.section_coursePerformance}>
-            <TypoTitle input_text={"수익 차트"} />
+            <div style={{
+              display : 'inline-block', // 텍스트 크기에 맞춰 크기 조절
+              backgroundColor:"#DAE6F4",
+              borderRadius:"8px",
+              padding: "10px 20px", // 패딩 추가하여 여백 확보
+            }}>
+              <TypoTitle input_text={"수익 차트"} />
+            </div>
             <div style={styles.section_in_profit}>
               <BarChartComponent />
             </div>
