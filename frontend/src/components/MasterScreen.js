@@ -316,7 +316,13 @@ const MasterScreen = () => {
       <div style={styles.mainPage}>
         <div style={styles.dashboard}>
           <div style={styles.section}>
-            <TypoTitle input_text={"COURSE PERFORMANCE"} />
+            <div style={{
+              backgroundColor:"#DAE6F4",
+              borderRadius:"10px",
+            }}>
+            <TypoTitle input_text={"고객 등록"} />
+            </div>
+            
             <div style={styles.registerSection}>
               <div style={styles.section_in_classLine}>
                 <ClassLine />
@@ -324,13 +330,13 @@ const MasterScreen = () => {
             </div>
           </div>
           <div style={styles.section}>
-            <TypoTitle input_text={"STUDENTS RATE"} />
+            <TypoTitle input_text={"클래스 비율"} />
             <div style={styles.section_in}>
               <PieEx />
             </div>
           </div>
           <div style={styles.section_coursePerformance}>
-            <TypoTitle input_text={"NET PROFIT"} />
+            <TypoTitle input_text={"수익 차트"} />
             <div style={styles.section_in_profit}>
               <BarChartComponent />
             </div>
