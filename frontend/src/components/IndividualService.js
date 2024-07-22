@@ -89,7 +89,8 @@ const IndividualService = () => {
       });
   };
 
-  const handleCheckboxChange = (memberId) => {
+  const handleCheckboxChange = (event, memberId) => {
+    event.stopPropagation(); // Prevent the event from bubbling up to the ListItem
     setSelectedMembers((prevSelected) =>
       prevSelected.includes(memberId)
         ? prevSelected.filter((id) => id !== memberId)
@@ -161,19 +162,21 @@ const IndividualService = () => {
         </Typography>
         <List>
           {members.map((member) => (
-            <ListItem 
-              key={member.userPK} 
-              button
-              onClick={() => handleMemberClick(member.userPK)}
+            <ListItem
+              key={member.userPK}
               secondaryAction={
                 <Checkbox
                   edge="end"
-                  onChange={() => handleCheckboxChange(member.userPK)}
+                  onChange={(e) => handleCheckboxChange(e, member.userPK)}
                   checked={selectedMembers.includes(member.userPK)}
                 />
               }
             >
-              <ListItemText primary={member.username} />
+              <ListItemText
+                primary={member.username}
+                onClick={() => handleMemberClick(member.userPK)}
+                sx={{ cursor: 'pointer' }} // Show a pointer cursor to indicate it's clickable
+              />
             </ListItem>
           ))}
         </List>
