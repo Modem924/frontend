@@ -12,6 +12,7 @@ import IndividualService from "./IndividualService";
 import FaceDetection from "./FaceDetection";
 import HealthDataAnalyzer from "./HealthDataAnalyzer";
 import UploadVer1 from "./Upload_ver1";
+import WorkerScreen from "./WorkerScreen";
 
 export {
   AppPaperScreen,
@@ -28,4 +29,5 @@ export {
   FaceDetection,
   HealthDataAnalyzer,
   UploadVer1,
+  WorkerScreen,
 };

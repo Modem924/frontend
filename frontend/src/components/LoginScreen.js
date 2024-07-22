@@ -16,9 +16,11 @@ const LoginScreen = ({ setToken }) => {
       const data = await login(id, password);
       console.log(data);
       const { accessToken } = data;
+      const { grantedAuthorities } = data; //유저 auth
+      console.log("grantedAuthorities : ", grantedAuthorities);
       //로컬에 토큰 저장
       localStorage.setItem("jwtToken", accessToken);
-      localStorage.setItem('username', id);
+      localStorage.setItem("username", id);
       //애플리케이션에서 관리용 토큰
       setToken(data.accessToken);
       setError("");

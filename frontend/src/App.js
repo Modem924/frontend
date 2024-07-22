@@ -15,6 +15,7 @@ import {
   HealthDataAnalyzer,
   FaceDetection,
   UploadVer1,
+  WorkerScreen,
 } from "./components";
 
 const App = () => {
@@ -32,10 +33,14 @@ const App = () => {
           <Route path="/signupscreen" element={<SignupScreen />} />
           <Route path="/testy" element={<Testy />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
-          <Route path="/api/edu/:eduPK/members" element={<IndividualService />} />
+          <Route
+            path="/api/edu/:eduPK/members"
+            element={<IndividualService />}
+          />
           <Route path="/upload" element={<UploadVer1 />} />
           <Route path="/analyze" element={<HealthDataAnalyzer />} />
           <Route path="/face-detection" element={<FaceDetection />} />
+          <Route path="/workerscreen" element={<WorkerScreen />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>
