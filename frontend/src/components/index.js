@@ -26,7 +26,7 @@ export {
   Logout,
   Testy,
   IndividualService,
-  ReportScreen
+  ReportScreen,
   FaceDetection,
   HealthDataAnalyzer,
   UploadVer1,
