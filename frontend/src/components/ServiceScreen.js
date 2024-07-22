@@ -108,8 +108,8 @@ const ServiceScreen = () => {
   const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleCardClick = (eduPK) => {
-    console.log('Clicked eduPK:', eduPK);  // Log clicked eduPK
-    navigate(`/api/edu/${eduPK}/members`);
+    console.log('Clicked eduPK:', eduPK);
+    navigate(`/${eduPK}/members`);
   };
 
   return (

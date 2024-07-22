@@ -9,6 +9,7 @@
     "@mui/material": "^5.16.1",
     "@mui/x-data-grid": "^7.11.0",
     "@react-spring/web": "^9.7.3",
+    "@mui/x-charts": "^7.11.0",
     "@tensorflow/tfjs-node": "^4.20.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -21,6 +22,7 @@
     "face-api.js": "^0.22.2",
     "http-proxy-middleware": "^3.0.0",
     "react": "^18.3.1",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
@@ -28,6 +30,7 @@
     "react-typed": "^2.0.12",
     "styled-components": "^6.1.12",
     "toolbar": "^0.0.5",
+    "typewriter-effect": "^2.21.0",
     "use-history": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
