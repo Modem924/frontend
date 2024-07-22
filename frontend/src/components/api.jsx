@@ -151,6 +151,8 @@ export const updateWorker = async (data) => {
     return response.data || {};
   } catch (error) {
     console.error("Error updating worker:", error);
+  }
+};
     
 export const getMemberDetails = async (userPK) => {
   try {
