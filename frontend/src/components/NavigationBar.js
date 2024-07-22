@@ -10,6 +10,9 @@ import Button from "@mui/material/Button";
 
 const navItems = [
   { label: "Home", path: "/master" },
+  { label: "Upload", path: "/upload" },
+  { label: "FaceDetection", path: "/face-detection" },
+  { label: "Analyzer", path: "/analyze" },
   { label: "Service", path: "/service" },
   { label: "Attendance", path: "/attendance" },
   { label: "Logout", path: "/logout" },
