@@ -5,8 +5,11 @@ import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MessageIcon from "@mui/icons-material/Message";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Grid";
+import MessageIcon from "@mui/icons-material/Message";
+import { getAttendance } from "./api";
 
 const mockData = [
   {
@@ -49,6 +52,14 @@ const mockData = [
       { date: "2024-09-06", status: "vacation-pending" },
     ],
   },
+  {
+    name: "고양이",
+    attendance: [
+      { date: "2024-09-01", status: "vacation-approved" },
+      { date: "2024-09-04", status: "vacation-pending" },
+      { date: "2024-09-06", status: "vacation-pending" },
+    ],
+  },
   // 더 많은 직원...
 ];
 
@@ -82,7 +93,6 @@ const styles = {
     fontWeight: "bold",
     padding: "10px",
     borderRadius: "5px",
-    //backgroundColor: "#fff",
     height: "70px",
   },
   dayCell: {
@@ -108,7 +118,6 @@ const styles = {
     justifyContent: "center",
     margin: "2px 0",
     padding: "10px",
-    //backgroundColor: "#fff",
     borderRadius: "10px",
     width: "150px",
     height: "70px",
@@ -129,7 +138,6 @@ const styles = {
     flexShrink: "0",
     textAlign: "center",
     backgroundColor: "#f2f2f2",
-    //boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     fontSize: "12px",
   },
   vacationApproved: {
@@ -167,7 +175,7 @@ const styles = {
   },
 };
 
-const AttendanceTest = () => {
+const AttendanceScreen = () => {
   const [data, setData] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date(2024, 8, 1));
   const [searchTerm, setSearchTerm] = useState("");
@@ -175,12 +183,12 @@ const AttendanceTest = () => {
   const [selectedMember, setSelectedMember] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const fetchData = async () => {
+    //const result = getAttendance():
+    const result = mockData;
+    setData(result);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const result = mockData;
-      setData(result);
-    };
-
     fetchData();
   }, []);
 
@@ -329,6 +337,13 @@ const AttendanceTest = () => {
             fullWidth
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={10}>
@@ -348,10 +363,6 @@ const AttendanceTest = () => {
                 xs={2}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <IconButton onClick={() => handleMemberClick(member)}>
-                  <MessageIcon />
-                </IconButton>
-
                 <div
                   style={styles.memberName}
                   onClick={() => handleMemberClick(member)}
@@ -421,4 +432,4 @@ const AttendanceTest = () => {
   );
 };
 
-export default AttendanceTest;
+export default AttendanceScreen;

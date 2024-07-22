@@ -153,20 +153,33 @@ export const updateWorker = async (data) => {
     console.error("Error updating worker:", error);
   }
 };
-    
+
 export const getMemberDetails = async (userPK) => {
   try {
     const response = await axios.get(`/api/members/${userPK}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching member details:', error.response ? error.response.data : error.message);
+    console.error(
+      "Error fetching member details:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
 
 export const getMasterMain = async () => {
   try {
-    const response = await axiosInstance.get('/masters/main');
+    const response = await axiosInstance.get("/masters/main");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching master main data:", error);
+    throw error;
+  }
+};
+
+export const getAttendance = async () => {
+  try {
+    const response = await axiosInstance.get("/members/member-list");
     return response.data;
   } catch (error) {
     console.error("Error fetching master main data:", error);

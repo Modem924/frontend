@@ -17,7 +17,7 @@ import {
   FaceDetection,
   UploadVer1,
   WorkerScreen,
-  AttendanceScreen,
+  Attendancestyle,
 } from "./components";
 
 const App = () => {
@@ -45,7 +45,7 @@ const App = () => {
           <Route path="/analyze" element={<HealthDataAnalyzer />} />
           <Route path="/face-detection" element={<FaceDetection />} />
           <Route path="/workerscreen" element={<WorkerScreen />} />
-          <Route path="/attendancescreen" element={<AttendanceScreen />} />
+          <Route path="/attendancescreen" element={<Attendancestyle />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>
