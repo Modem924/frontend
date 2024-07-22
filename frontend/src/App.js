@@ -16,6 +16,7 @@ import {
   HealthDataAnalyzer,
   FaceDetection,
   UploadVer1,
+  WorkerScreen,
 } from "./components";
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/upload" element={<UploadVer1 />} />
           <Route path="/analyze" element={<HealthDataAnalyzer />} />
           <Route path="/face-detection" element={<FaceDetection />} />
+          <Route path="/workerscreen" element={<WorkerScreen />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>
