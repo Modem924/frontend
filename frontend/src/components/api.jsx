@@ -93,6 +93,25 @@ export const deleteMember = async (eduPK, memberId) => {
   }
 };
 
+export const getMemberDetails = async (userPK) => {
+  try {
+    const response = await axios.get(`/api/members/${userPK}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching member details:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+export const getMasterMain = async () => {
+  try {
+    const response = await axiosInstance.get('/masters/main');
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching master main data:", error);
+    throw error;
+  }
+};
 
 export const userLogout = () => {
   logout();

@@ -14,7 +14,6 @@ import NavigationBar from './NavigationBar';
 const IndividualService = () => {
   const { eduPK } = useParams();
   const navigate = useNavigate();
-  console.log('eduparams: ', eduPK);
   const [members, setMembers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [eduDetails, setEduDetails] = useState({
@@ -26,7 +25,6 @@ const IndividualService = () => {
   const [newMemberId, setNewMemberId] = useState('');
 
   useEffect(() => {
-    console.log('Received eduPK:', eduPK);
     getServiceMembers(eduPK)
       .then((response) => {
         const { data } = response;
@@ -107,6 +105,10 @@ const IndividualService = () => {
     }));
   };
 
+  const handleMemberClick = (userPK) => {
+    navigate(`/report/${userPK}`);
+  };
+
   return (
     <div>
       <NavigationBar />
@@ -150,7 +152,7 @@ const IndividualService = () => {
           <Button variant="contained" onClick={handleUpdateService} sx={{ mr: 2 }}>
             Update
           </Button>
-          <Button variant="contained" color="error" onClick={handleDeleteService}>
+          <Button variant="contained" color="error" onClick={handleDeleteService} sx={{ ml: 2 }}>
             Delete Service
           </Button>
         </Box>
@@ -158,14 +160,19 @@ const IndividualService = () => {
           수업 수강생 목록
         </Typography>
         <List>
-          {members.map((member, index) => (
-            <ListItem key={index} secondaryAction={
-              <Checkbox
-                edge="end"
-                onChange={() => handleCheckboxChange(member.userPK)}
-                checked={selectedMembers.includes(member.userPK)}
-              />
-            }>
+          {members.map((member) => (
+            <ListItem 
+              key={member.userPK} 
+              button
+              onClick={() => handleMemberClick(member.userPK)}
+              secondaryAction={
+                <Checkbox
+                  edge="end"
+                  onChange={() => handleCheckboxChange(member.userPK)}
+                  checked={selectedMembers.includes(member.userPK)}
+                />
+              }
+            >
               <ListItemText primary={member.username} />
             </ListItem>
           ))}

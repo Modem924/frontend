@@ -9,6 +9,7 @@ import SignupScreen from "./SignupScreen";
 import Logout from "./Logout";
 import Testy from "./Testy";
 import IndividualService from "./IndividualService";
+import ReportScreen from "./ReportScreen";
 import FaceDetection from "./FaceDetection";
 import HealthDataAnalyzer from "./HealthDataAnalyzer";
 import UploadVer1 from "./Upload_ver1";
@@ -25,6 +26,7 @@ export {
   Logout,
   Testy,
   IndividualService,
+  ReportScreen
   FaceDetection,
   HealthDataAnalyzer,
   UploadVer1,
