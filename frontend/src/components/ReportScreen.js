@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getMemberDetails } from './api';
+import { getMemberDetails, deleteUser } from './api';
 import { Link, useParams } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import CssBaseline from '@mui/material/CssBaseline';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Typewriter from 'typewriter-effect';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -16,15 +11,22 @@ import { Gauge } from '@mui/x-charts/Gauge';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import clipBoardIcon from '../util/clipboard_gray.png';
 import reportIcon from '../util/report_gray.png';
-import updateIcon from '../util/update_gray.png';
+import deleteIcon from '../util/delete_gray.png'; // 새로운 삭제 아이콘 추가
 import Snackbar from '@mui/material/Snackbar';
 import CircularProgress from '@mui/material/CircularProgress';
+import NavigationBar from './NavigationBar';
+import axios from 'axios';
+import { ReactTyped as Typed } from 'react-typed';
+import styled from 'styled-components';
 
 export default function ReportScreen() {
     const { userPK } = useParams();
     const [userData, setUserData] = useState(null);
     const [showTypewriter, setShowTypewriter] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [result, setResult] = useState('');
 
     const theme = createTheme({
         palette: {
@@ -42,8 +44,8 @@ export default function ReportScreen() {
     useEffect(() => {
         console.log('Fetching data for userPK:', userPK);
         getMemberDetails(userPK)
-            .then(response => {
-                setUserData(response.data.meminfo);
+            .then(data => {
+                setUserData(data);
                 setLoading(false);
             })
             .catch(error => {
@@ -54,6 +56,22 @@ export default function ReportScreen() {
 
     const handleClick = () => {
         setShowTypewriter(true);
+    };
+
+    const handleDelete = () => {
+        if (userData?.username) {
+            deleteUser(userData.username)
+                .then(() => {
+                    setSnackbarMessage('User deleted successfully');
+                    setSnackbarOpen(true);
+                    setUserData(null); // Clear user data after deletion
+                })
+                .catch(error => {
+                    console.error('Error deleting user:', error);
+                    setSnackbarMessage('Error deleting user');
+                    setSnackbarOpen(true);
+                });
+        }
     };
 
     const TypewriterEx = () => (
@@ -68,6 +86,23 @@ export default function ReportScreen() {
             }}
         />
     );
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+    
+        try {
+          const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/Integration/upload_report', {
+            user_id: userPK,
+          });
+          setResult(response.data.response);
+        } catch (error) {
+          console.error('Error fetching data', error);
+          setResult('데이터를 가져오는 중 오류가 발생했습니다.');
+        } finally {
+          setLoading(false);
+        }
+    };
 
     const temp_report = 
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
@@ -133,49 +168,6 @@ export default function ReportScreen() {
         }
     };
 
-    const navItemReport = [
-        { label: 'Report', path: '/report' },
-        { label: 'Logout', path: '/' },
-    ];
-
-    function NavigationBar() {
-        return (
-            <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
-                <AppBar component="nav" sx={{ backgroundColor: 'white' }}>
-                    <Toolbar>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="start"
-                            sx={{ mr: 2, display: { sm: 'none' } }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-                            <img src={require('./../util/logo.png')} alt="Logo" style={{ width: "200px" }} />
-                        </Box>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            {navItemReport.map((item) => (
-                                <Button
-                                    key={item.label}
-                                    component={Link}
-                                    to={item.path}
-                                    sx={{ color: 'black' }}
-                                >
-                                    {item.label}
-                                </Button>
-                            ))}
-                        </Box>
-                    </Toolbar>
-                </AppBar>
-                <Box component="main" sx={{ p: 3 }}>
-                    <Toolbar />
-                </Box>
-            </Box>
-        );
-    }
-
     function TypoTitle({ input_text }) {
         theme.typography.h3 = {
             fontSize: '1.2rem',
@@ -214,6 +206,15 @@ export default function ReportScreen() {
                         variant="standard"
                     />
                     <TextField
+                        id="nickname_input"
+                        label="Nickname"
+                        defaultValue={userData?.userNickname || ''}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="standard"
+                    />
+                    <TextField
                         id="phone_number_input"
                         label="Phone"
                         defaultValue={userData?.userPhoneNumber || ''}
@@ -240,7 +241,7 @@ export default function ReportScreen() {
         const cliped = temp_report;
         return (
             <CopyToClipboard text={cliped} onCopy={() => alert('복사를 완료했습니다.')}>
-                <Button variant="contained" color={"skyblue"} startIcon={<img src={clipBoardIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white' }}>
+                <Button variant="contained" color="skyblue" startIcon={<img src={clipBoardIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white' }}>
                     CLIPBOARD
                 </Button>
             </CopyToClipboard>
@@ -263,9 +264,32 @@ export default function ReportScreen() {
         );
     }
 
-    if (loading) {
-        return <CircularIndeterminate />;
-    }
+    const Result = styled.div`
+        background-color: #f1f8e9; /* 연한 초록색 */
+        padding: 30px; /* 패딩을 30px로 늘림 */
+        border-radius: 8px;
+        border: 1px solid #c5e1a5; /* 연한 초록색 */
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    `;
+
+    const Loader = styled.div`
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #00796b; /* 진한 초록색 */
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
 
     return (
         <>
@@ -283,24 +307,26 @@ export default function ReportScreen() {
                             </div>
                         </div>
                         <div style={styles.section_in_button}>
-                            <Button variant="contained" color={"skyblue"} startIcon={<img src={updateIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>UPDATE</Button>
-                            <Button variant="contained" color={"skyblue"} onClick={handleClick} startIcon={<img src={reportIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>REPORT</Button>
+                            <Button variant="contained" color="skyblue" startIcon={<img src={deleteIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }} onClick={handleDelete}>DELETE</Button>
+                            <Button variant="contained" color="skyblue" onClick={handleSubmit} startIcon={<img src={reportIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>REPORT</Button>
                         </div>
                     </div>
-                    <div style={styles.section}>
+                    {/* <div style={styles.section}> */}
                         {/* Additional content can go here */}
-                    </div>
+                    {/* </div> */}
                     <div style={styles.section}>
                         <TypoTitle input_text={userData?.username + " 님의 Report"} />
-                        <div style={styles.section_in}>
-                            <div style={styles.section_in_report}>
-                                <p>content of report</p>
-                                {showTypewriter && <TypewriterEx />}
+                            <div>
+                                {loading && <Loader />}
+                                {result && !loading && (
+                                <Result>
+                                    <Typed
+                                    strings={[result]}
+                                    typeSpeed={30}
+                                    />
+                                </Result>
+                                )}
                             </div>
-                        </div>
-                        <div style={styles.section_in_button}>
-                            <CLIP />
-                        </div>
                     </div>
                 </div>
             </ThemeProvider>

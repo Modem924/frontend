@@ -9,16 +9,19 @@ const Testy = () => {
   const [memberDetails, setMemberDetails] = useState(null);
 
   useEffect(() => {
+    console.log('Fetching data for userPK:', userPK);
+
     getMemberDetails(userPK)
-      .then((response) => {
-        const { data } = response;
-        setMemberDetails(data.meminfo);
+      .then((data) => {
+        console.log('Member details received:', data);
+        setMemberDetails(data);
       })
       .catch((error) => {
         console.error('Error fetching member details:', error);
       });
   }, [userPK]);
 
+  // memberDetails가 null일 때 로딩 메시지 표시
   if (!memberDetails) return <Typography>Loading...</Typography>;
 
   return (
