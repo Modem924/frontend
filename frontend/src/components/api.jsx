@@ -103,6 +103,16 @@ export const getMemberDetails = async (userPK) => {
   }
 };
 
+export const getMasterMain = async () => {
+  try {
+    const response = await axiosInstance.get('/masters/main');
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching master main data:", error);
+    throw error;
+  }
+};
+
 export const userLogout = () => {
   logout();
 };
