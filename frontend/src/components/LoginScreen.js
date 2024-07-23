@@ -16,6 +16,8 @@ const LoginScreen = ({ setToken, setGrantedAuthorities }) => {
       const auth = data.grantedAuthorities;
       localStorage.setItem("jwtToken", accessToken);
       localStorage.setItem("grantedAuthorities", auth);
+      localStorage.setItem("workerId", id);
+      console.log(id);
       setToken(data.accessToken);
       setGrantedAuthorities(auth);
       setError("");
