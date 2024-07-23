@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-export default function Navbar_member() {
+export default function NavigationBar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -51,22 +51,21 @@ export default function Navbar_member() {
             <img src={require('./../util/logo.png')} alt="Logo" style={{ width: "100px", marginLeft: '16px' }} />
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '12px' }}>
-            
-            <Button
-              component={Link}
-              to="/logout"
-              sx={{ 
-                color: 'white', 
-                fontSize: '14px', 
-                fontWeight: 'bold', 
-                textTransform: 'none', 
-                backgroundColor: '#344889', 
-                padding: '6px 12px', 
-                borderRadius: '8px', 
-                '&:hover': { backgroundColor: '#555555' } 
-              }}
-            >
-              로그아웃
+              <Button
+                component={Link}
+                to="/logout"
+                sx={{ 
+                  color: 'white', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: '#344889', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  '&:hover': { backgroundColor: '#555555' } 
+                }}
+              >
+                로그아웃
             </Button>
           </Box>
         </Toolbar>

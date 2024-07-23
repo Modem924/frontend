@@ -16,14 +16,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 const navItems = [
-  { label: "Home", path: "/service" },
-  { label: "Upload", path: "/upload" },
-  { label: "FaceDetection", path: "/face-detection" },
-  { label: "Analyzer", path: "/analyze" },
-  { label: "Attendance", path: "/attendance" },
+  { label: "홈", path: "/master" },
+  { label: "업로드", path: "/upload" },
+  { label: "페이스캠", path: "/face-detection" },
+  { label: "분석", path: "/analyze" },
+  { label: "서비스", path: "/service" },
 ];
 
-export default function Navbar_worker() {
+export default function NavigationBar() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -92,20 +92,54 @@ export default function Navbar_worker() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '12px' }}>
             
             <Button
-              component={Link}
-              to="/logout"
-              sx={{ 
-                color: 'white', 
-                fontSize: '14px', 
-                fontWeight: 'bold', 
-                textTransform: 'none', 
-                backgroundColor: '#344889', 
-                padding: '6px 12px', 
-                borderRadius: '8px', 
-                '&:hover': { backgroundColor: '#555555' } 
-              }}
-            >
-              로그아웃
+                component={Link}
+                to="/workerscreen"
+                sx={{ 
+                  color: '#344889', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: 'white', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #344889', 
+                  '&:hover': { backgroundColor: '#e0e0e0' } 
+                }}
+              >
+                직원관리
+              </Button>
+              <Button
+                component={Link}
+                to="/attendance"
+                sx={{ 
+                  color: '#344889', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: 'white', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #344889', 
+                  '&:hover': { backgroundColor: '#e0e0e0' } 
+                }}
+              >
+                출석체크
+              </Button>
+              <Button
+                component={Link}
+                to="/logout"
+                sx={{ 
+                  color: 'white', 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'none', 
+                  backgroundColor: '#344889', 
+                  padding: '6px 12px', 
+                  borderRadius: '8px', 
+                  '&:hover': { backgroundColor: '#555555' } 
+                }}
+              >
+                로그아웃
             </Button>
           </Box>
         </Toolbar>

@@ -16,13 +16,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
 const navItems = [
-  { label: "Home", path: "/master" },
-  { label: "Workers", path: "/workerscreen" },
-  { label: "Upload", path: "/upload" },
-  { label: "FaceDetection", path: "/face-detection" },
-  { label: "Analyzer", path: "/analyze" },
-  { label: "Service", path: "/service" },
-  { label: "Attendance", path: "/attendance" },
+  { label: "홈", path: "/master" },
+  { label: "업로드", path: "/upload" },
+  { label: "페이스캠", path: "/face-detection" },
+  { label: "분석", path: "/analyze" },
+  { label: "서비스", path: "/service" },
 ];
 
 export default function NavigationBar() {
@@ -95,7 +93,7 @@ export default function NavigationBar() {
             
             <Button
                 component={Link}
-                to="/logout"
+                to="/workerscreen"
                 sx={{ 
                   color: '#344889', 
                   fontSize: '14px', 
@@ -112,7 +110,7 @@ export default function NavigationBar() {
               </Button>
               <Button
                 component={Link}
-                to="/logout"
+                to="/attendance"
                 sx={{ 
                   color: '#344889', 
                   fontSize: '14px', 
@@ -125,7 +123,7 @@ export default function NavigationBar() {
                   '&:hover': { backgroundColor: '#e0e0e0' } 
                 }}
               >
-                고객관리
+                출석체크
               </Button>
               <Button
                 component={Link}
