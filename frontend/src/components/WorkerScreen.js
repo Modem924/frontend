@@ -206,7 +206,7 @@ const WorkerScreen = () => {
     },
     {
       field: "userNickName",
-      headerName: "Name",
+      headerName: "성함",
       width: 200,
       renderCell: (params) => (
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -216,7 +216,7 @@ const WorkerScreen = () => {
       ),
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <span>Name</span>
+          <span>성함</span>
           <IconButton
             onClick={() => handleSortClick("userNickName")}
             size="small"
@@ -234,11 +234,11 @@ const WorkerScreen = () => {
     },
     {
       field: "worktimeDay",
-      headerName: "Date",
+      headerName: "날짜",
       width: 150,
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <span>Date</span>
+          <span>날짜</span>
           <IconButton
             onClick={() => handleSortClick("worktimeDay")}
             size="small"
@@ -256,12 +256,12 @@ const WorkerScreen = () => {
     },
     {
       field: "hours",
-      headerName: "Hours Worked",
+      headerName: "일한 시간",
       type: "number",
       width: 150,
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <span>Hours Worked</span>
+          <span>일한 시간</span>
           <IconButton onClick={() => handleSortClick("hours")} size="small">
             <SortIcon
               direction={
@@ -274,12 +274,12 @@ const WorkerScreen = () => {
     },
     {
       field: "workerSalary",
-      headerName: "Salary",
+      headerName: "급여",
       type: "number",
       width: 150,
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <span>Salary</span>
+          <span>급여</span>
           <IconButton
             onClick={() => handleSortClick("workerSalary")}
             size="small"
@@ -297,7 +297,7 @@ const WorkerScreen = () => {
     },
     {
       field: "actions",
-      headerName: "Actions",
+      headerName: "동작",
       width: 200, // Increase the width to ensure buttons fit
       sortable: false,
       renderCell: (params) => (
@@ -316,7 +316,7 @@ const WorkerScreen = () => {
               },
             }}
           >
-            Edit
+            수정
           </Button>
           <Button
             onClick={() => handleDelete(params.row.id)} // Pass params.row.id instead of params
@@ -332,7 +332,7 @@ const WorkerScreen = () => {
               },
             }}
           >
-            Delete
+            삭제
           </Button>
         </>
       ),
@@ -361,7 +361,7 @@ const WorkerScreen = () => {
               },
             }}
           >
-            Add Worker
+            강사 추가
           </Button>
         </div>
         <DataGrid
@@ -381,7 +381,7 @@ const WorkerScreen = () => {
           <Box sx={style}>
             <h2>{formData.id ? "Edit Worker" : "Add Worker"}</h2>
             <TextField
-              label="Username"
+              label="유저이름"
               name="username"
               value={formData.username}
               onChange={handleFormChange}
@@ -389,7 +389,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Password"
+              label="비밀번호"
               name="password"
               value={formData.password}
               onChange={handleFormChange}
@@ -398,7 +398,7 @@ const WorkerScreen = () => {
               type="password"
             />
             <TextField
-              label="Name"
+              label="성함"
               name="userNickName"
               value={formData.userNickName}
               onChange={handleFormChange}
@@ -406,7 +406,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Address"
+              label="주소"
               name="userAddress"
               value={formData.userAddress}
               onChange={handleFormChange}
@@ -414,7 +414,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Phone Number"
+              label="개인전화번호"
               name="userPhoneNumber"
               value={formData.userPhoneNumber}
               onChange={handleFormChange}
@@ -422,7 +422,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Salary"
+              label="급여"
               name="workerSalary"
               value={formData.workerSalary}
               onChange={handleFormChange}
@@ -456,7 +456,7 @@ const WorkerScreen = () => {
                 "&:hover": { backgroundColor: "#344889" },
               }}
             >
-              {formData.id ? "Update" : "Add"}
+              {formData.id ? "업데이트" : "추가"}
             </Button>
           </Box>
         </Modal>
