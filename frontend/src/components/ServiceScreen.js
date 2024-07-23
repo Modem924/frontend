@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavigationBar from './Navbar_master';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -130,7 +129,6 @@ const ServiceScreen = () => {
 
   return (
     <div>
-      <NavigationBar />
       <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={6} md={4}>

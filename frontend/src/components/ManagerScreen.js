@@ -15,7 +15,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import NavigationBar from './Navbar_master';
 
 
 
@@ -364,7 +363,6 @@ function BSchart() {
   
     return (
         <>
-        <NavigationBar/>
         <div style={styles.dashboard}>
             <div style={styles.section}>
                 <TypoTitle input_text={"NET PROFIT"}/>

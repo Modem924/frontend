@@ -14,7 +14,6 @@ import reportIcon from '../util/report_gray.png';
 import deleteIcon from '../util/delete_gray.png'; // 새로운 삭제 아이콘 추가
 import Snackbar from '@mui/material/Snackbar';
 import CircularProgress from '@mui/material/CircularProgress';
-import NavigationBar from './Navbar_member';
 import axios from 'axios';
 import { ReactTyped as Typed } from 'react-typed';
 import styled from 'styled-components';
@@ -294,7 +293,6 @@ export default function ReportScreen() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <NavigationBar />
                 <div style={styles.board}>
                     <div style={styles.section}>
                         <TypoTitle input_text="INFO" />

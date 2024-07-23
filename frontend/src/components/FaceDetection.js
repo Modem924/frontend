@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as faceapi from 'face-api.js';
-import NavigationBar from './Navbar_master';
 
 const styles = {
   body: {
@@ -236,7 +235,6 @@ const FaceDetection = () => {
 
   return (
     <div>
-      <NavigationBar />
       <div style={styles.faceDetection}>
         <header style={styles.header}>
           <h1 style={styles.h1}>얼굴 인식 출석 체크</h1>

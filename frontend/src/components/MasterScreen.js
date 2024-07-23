@@ -10,7 +10,6 @@ import { createTheme, ThemeProvider,useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { BarChart } from '@mui/x-charts/BarChart';
 import { getMasterMain } from './api';
-import NavigationBar from "./Navbar_master";
 import '../index.css'; 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -320,7 +319,6 @@ const MasterScreen = () => {
   }
   return (
     <>
-      <NavigationBar/>
       <div style={styles.mainPage}>
         <div style={styles.dashboard}>
           <div style={styles.section}>

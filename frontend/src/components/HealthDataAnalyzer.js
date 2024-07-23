@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ReactTyped as Typed } from 'react-typed';
 import styled, { createGlobalStyle } from 'styled-components';
-import NavigationBar from './Navbar_master';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -138,7 +137,6 @@ const HealthDataAnalyzer = () => {
   return (
     <div>
       <GlobalStyle/>
-      <NavigationBar/>
       <Container>
         <Title>Health Data Analyzer</Title>
         <Form onSubmit={handleSubmit}>

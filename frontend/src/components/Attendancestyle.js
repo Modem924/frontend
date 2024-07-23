@@ -1,6 +1,5 @@
 import React from "react";
 import AttendanceScreen from "./AttendanceScreen";
-import NavigationBar from "./Navbar_master";
 const styles = {
   mainPage: {
     padding: "20px",
@@ -22,7 +21,6 @@ const styles = {
 const Attendancestyle = () => {
   return (
     <div>
-      <NavigationBar />
       <div style={styles.mainPage}>
         <div style={styles.dashboard}>
           <div style={styles.section}>

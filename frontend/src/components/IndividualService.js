@@ -9,7 +9,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import NavigationBar from './Navbar_master';
 
 const IndividualService = () => {
   const { eduPK } = useParams();
@@ -112,7 +111,6 @@ const IndividualService = () => {
 
   return (
     <div>
-      <NavigationBar />
       <Box sx={{ flexGrow: 1, p: 3, width: '50%', margin: '0 auto' }}>
         <Typography variant="h4" gutterBottom>
           수업 정보

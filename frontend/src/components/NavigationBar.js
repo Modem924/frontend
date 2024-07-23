@@ -15,15 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const navItems = [
-  { label: "홈", path: "/master" },
-  { label: "업로드", path: "/upload" },
-  { label: "페이스캠", path: "/face-detection" },
-  { label: "분석", path: "/analyze" },
-  { label: "서비스", path: "/service" },
-];
-
-export default function NavigationBar() {
+const NavigationBar = ({ grantedAuthorities }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -32,21 +24,27 @@ export default function NavigationBar() {
     setMobileOpen(!mobileOpen);
   };
 
+  const navItems = [
+    { label: "홈", path: "/master", roles: ["Master"] },
+    { label: "업로드", path: "/upload", roles: ["Master", "Worker"] },
+    { label: "페이스캠", path: "/face-detection", roles: ["Master", "Worker"] },
+    { label: "분석", path: "/analyze", roles: ["Master", "Worker"] },
+    { label: "서비스", path: "/service", roles: ["Master", "Worker"] },
+    { label: "출석체크", path: "/attendance", roles: ["Master", "Worker"] },
+  ];
+
+  const filteredNavItems = navItems.filter(item => item.roles.includes(grantedAuthorities));
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
-        {navItems.map((item) => (
+        {filteredNavItems.map((item) => (
           <ListItem key={item.label} disablePadding>
             <ListItemButton component={Link} to={item.path}>
               <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/logout">
-            <ListItemText primary="로그아웃" />
-          </ListItemButton>
-        </ListItem>
       </List>
     </Box>
   );
@@ -54,16 +52,16 @@ export default function NavigationBar() {
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <CssBaseline />
-      <AppBar component="nav" 
-              sx={{ 
-                  backgroundColor: '#FFFFFF', 
-                  boxShadow: 'none', 
-                  borderBottom: '1px solid #E0E0E0' 
-                  }}>
-        <Toolbar sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  padding: '0 16px', 
+      <AppBar component="nav"
+              sx={{
+                  backgroundColor: '#FFFFFF',
+                  boxShadow: 'none',
+                  borderBottom: '1px solid #E0E0E0'
+              }}>
+        <Toolbar sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '0 16px',
                   minHeight: '85px !important' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
@@ -78,7 +76,7 @@ export default function NavigationBar() {
             <img src={require('./../util/logo.png')} alt="Logo" style={{ width: "100px", marginLeft: '16px' }} />
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', flexGrow: 1 }}>
-            {navItems.map((item) => (
+            {filteredNavItems.map((item) => (
               <Button
                 key={item.label}
                 component={Link}
@@ -90,56 +88,42 @@ export default function NavigationBar() {
             ))}
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '12px' }}>
-            
+            {grantedAuthorities === "Master" && (
+              <>
+                <Button
+                  component={Link}
+                  to="/workerscreen"
+                  sx={{
+                    color: '#344889',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    backgroundColor: 'white',
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid #344889',
+                    '&:hover': { backgroundColor: '#e0e0e0' }
+                  }}
+                >
+                  직원관리
+                </Button>
+              </>
+            )}
             <Button
-                component={Link}
-                to="/workerscreen"
-                sx={{ 
-                  color: '#344889', 
-                  fontSize: '14px', 
-                  fontWeight: 'bold', 
-                  textTransform: 'none', 
-                  backgroundColor: 'white', 
-                  padding: '6px 12px', 
-                  borderRadius: '8px', 
-                  border: '1px solid #344889', 
-                  '&:hover': { backgroundColor: '#e0e0e0' } 
-                }}
-              >
-                직원관리
-              </Button>
-              <Button
-                component={Link}
-                to="/attendance"
-                sx={{ 
-                  color: '#344889', 
-                  fontSize: '14px', 
-                  fontWeight: 'bold', 
-                  textTransform: 'none', 
-                  backgroundColor: 'white', 
-                  padding: '6px 12px', 
-                  borderRadius: '8px', 
-                  border: '1px solid #344889', 
-                  '&:hover': { backgroundColor: '#e0e0e0' } 
-                }}
-              >
-                출석체크
-              </Button>
-              <Button
-                component={Link}
-                to="/logout"
-                sx={{ 
-                  color: 'white', 
-                  fontSize: '14px', 
-                  fontWeight: 'bold', 
-                  textTransform: 'none', 
-                  backgroundColor: '#344889', 
-                  padding: '6px 12px', 
-                  borderRadius: '8px', 
-                  '&:hover': { backgroundColor: '#555555' } 
-                }}
-              >
-                로그아웃
+              component={Link}
+              to="/logout"
+              sx={{
+                color: 'white',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textTransform: 'none',
+                backgroundColor: '#344889',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                '&:hover': { backgroundColor: '#555555' }
+              }}
+            >
+              로그아웃
             </Button>
           </Box>
         </Toolbar>
@@ -164,3 +148,5 @@ export default function NavigationBar() {
     </Box>
   );
 }
+
+export default NavigationBar;

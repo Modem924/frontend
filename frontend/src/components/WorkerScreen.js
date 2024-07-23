@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import NavigationBar from "./Navbar_master";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Button,
@@ -391,7 +390,6 @@ const WorkerScreen = () => {
 
   return (
     <div>
-      <NavigationBar />
       <div style={{ height: 400, width: "100%" }}>
         <Button onClick={handleOpen}>직원 추가</Button>
         <DataGrid
