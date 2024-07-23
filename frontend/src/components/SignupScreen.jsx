@@ -64,7 +64,7 @@ const SignupScreen = () => {
             type="text"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            placeholder="ID"
+            placeholder="아이디"
           />
         </div>
         <div className="input-group">
@@ -73,7 +73,7 @@ const SignupScreen = () => {
             type="password" //화면에 표시되지 않음
             value={password} //입력 필드의 현재 상태를 컴포넌트의 상태와 동기화함
             onChange={(e) => setPassword(e.target.value)} //이벤트 핸들러, e : 객체, setPassword함수를 호출
-            placeholder="Password" //회색 텍스트가 표시
+            placeholder="비밀번호" //회색 텍스트가 표시
           />
         </div>
         <div className="input-group">
@@ -81,7 +81,7 @@ const SignupScreen = () => {
             type="text"
             value={userNickname}
             onChange={(e) => setuserNickname(e.target.value)}
-            placeholder="Nickname"
+            placeholder="성함"
           />
         </div>
         {/* userAddress,userPhoneNumber,profileImg,userRole,placeName,placeType */}
@@ -90,7 +90,7 @@ const SignupScreen = () => {
             type="text"
             value={userAddress}
             onChange={(e) => setuserAddress(e.target.value)}
-            placeholder="Address"
+            placeholder="주소"
           />
         </div>
         <div className="input-group">
@@ -98,7 +98,7 @@ const SignupScreen = () => {
             type="text"
             value={userPhoneNumber}
             onChange={(e) => setuserPhoneNumber(e.target.value)}
-            placeholder="PhoneNumber"
+            placeholder="개인 전화번호"
           />
         </div>
         <div className="input-group">
@@ -106,7 +106,7 @@ const SignupScreen = () => {
             type="text"
             value={userRole}
             onChange={(e) => setuserRole(e.target.value)}
-            placeholder="Role"
+            placeholder="직위"
           />
         </div>
         {/*placeName,placeType*/}
@@ -115,7 +115,7 @@ const SignupScreen = () => {
             type="text"
             value={placeName}
             onChange={(e) => setplaceName(e.target.value)}
-            placeholder="placeName"
+            placeholder="사업체이름"
           />
         </div>
         <div className="input-group">
@@ -123,7 +123,7 @@ const SignupScreen = () => {
             type="text"
             value={placeType}
             onChange={(e) => setplaceType(e.target.value)}
-            placeholder="placeType"
+            placeholder="사업분야"
           />
         </div>
 
