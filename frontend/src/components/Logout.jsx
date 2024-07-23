@@ -4,7 +4,6 @@ import { userLogout } from "./api";
 
 const Logout = ({ setToken }) => {
   const navigate = useNavigate();
-  alert("로그아웃 하시겠습니까?");
 
   userLogout();
   setToken(null);
