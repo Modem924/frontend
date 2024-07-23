@@ -26,10 +26,10 @@ const NavigationBar = ({ grantedAuthorities }) => {
 
   const navItems = [
     { label: "홈", path: "/master", roles: ["Master"] },
+    { label: "서비스", path: "/service", roles: ["Master", "Worker"] },
     { label: "업로드", path: "/upload", roles: ["Master", "Worker"] },
     { label: "페이스캠", path: "/face-detection", roles: ["Master", "Worker"] },
     { label: "분석", path: "/analyze", roles: ["Master", "Worker"] },
-    { label: "서비스", path: "/service", roles: ["Master", "Worker"] },
     { label: "출석체크", path: "/attendance", roles: ["Master", "Worker"] },
   ];
 
@@ -92,7 +92,7 @@ const NavigationBar = ({ grantedAuthorities }) => {
               <>
                 <Button
                   component={Link}
-                  to="/workerscreen"
+                  to="/workers"
                   sx={{
                     color: '#344889',
                     fontSize: '14px',
@@ -106,6 +106,23 @@ const NavigationBar = ({ grantedAuthorities }) => {
                   }}
                 >
                   직원관리
+                </Button>
+                <Button
+                  component={Link}
+                  to="/members"
+                  sx={{
+                    color: '#344889',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    backgroundColor: 'white',
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid #344889',
+                    '&:hover': { backgroundColor: '#e0e0e0' }
+                  }}
+                >
+                  회원관리
                 </Button>
               </>
             )}

@@ -16,6 +16,7 @@ import {
   WorkerScreen,
   Attendancestyle,
   NavigationBar,
+  MemberScreen
 } from "./components";
 
 const Main = ({ token, setToken, grantedAuthorities, setGrantedAuthorities }) => {
@@ -47,7 +48,8 @@ const Main = ({ token, setToken, grantedAuthorities, setGrantedAuthorities }) =>
         <Route path="/upload" element={<UploadVer1 />} />
         <Route path="/analyze" element={<HealthDataAnalyzer />} />
         <Route path="/face-detection" element={<FaceDetection />} />
-        <Route path="/workerscreen" element={<WorkerScreen />} />
+        <Route path="/workers" element={<WorkerScreen />} />
+        <Route path="/members" element={<MemberScreen />} />
         <Route path="/attendance" element={<Attendancestyle />} />
       </Routes>
     </AppPaperScreen>

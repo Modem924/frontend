@@ -210,6 +210,34 @@ export const getAttendance = async () => {
   }
 };
 
+export const addMembers = async (
+  username,
+  password,
+  userNickname,
+  userAddress,
+  userPhoneNumber,
+  userSignificant
+) => {
+  try {
+    const response = await axiosInstance.post("/add_member", {
+      username,
+      password,
+      userNickname,
+      userAddress,
+      userPhoneNumber,
+      userSignificant,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error in addWorker API call:",
+      error.response || error.message
+    );
+    throw error;
+  }
+};
+
+
 export const userLogout = () => {
   logout();
 };
