@@ -32,7 +32,6 @@ const styles = {
     color: '#344889',
     fontSize: '28px',
     margin: 0,
-    marginBottom: '20px',
   },
   container: {
     width: '100%',
@@ -177,7 +176,7 @@ const FaceDetection = () => {
       const base64Image = dataUrl.split(',')[1];
 
       try {
-        const response = await fetch('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/Integration/attendance', {
+        const response = await fetch('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL_9/attendance', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
