@@ -237,6 +237,16 @@ export const addMembers = async (
   }
 };
 
+export const deleteWorker = async (username) => {
+  try {
+    const response = await axiosInstance.post("/del_worker", { username });
+    console.log('try to delete: ', username);
+    return response.data;
+  } catch (error) {
+    console.error("Error while deleting worker:", error);
+    throw error;
+  }
+};
 
 export const userLogout = () => {
   logout();

@@ -9,30 +9,11 @@ import {
   Avatar,
 } from "@mui/material";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
-import { getWorkers, addWorker, updateWorker } from "./api";
+import { getWorkers, addWorker, updateWorker, deleteWorker } from "./api";
 import axios from "axios";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 dayjs.extend(duration);
-
-const initialRows = [
-  {
-    id: 1,
-    userNickName: "John Doe",
-    worktimeDay: "2023-07-21",
-    workerSalary: 50000,
-    hours: 9,
-    imageUrl: "",
-  },
-  {
-    id: 2,
-    userNickName: "Jane Smith",
-    worktimeDay: "2023-07-22",
-    workerSalary: 60000,
-    hours: 10,
-    imageUrl: "",
-  },
-];
 
 const style = {
   position: "absolute",
@@ -52,7 +33,6 @@ const calculateHours = (start, end) => {
 const WorkerScreen = () => {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
-  // 추가랑 업데이트할 때 관리
   const [formData, setFormData] = useState({
     id: "",
     username: "",
@@ -70,14 +50,11 @@ const WorkerScreen = () => {
   const fetchData = async () => {
     try {
       const response = await getWorkers();
-      console.log("getworkers : ", response);
       const calculatedRows = response.map((row) => ({
         ...row,
         hours: calculateHours(row.worktimeStart, row.worktimeEnd),
-
-        id: row.workerPk, // Ensure each row has a unique id
+        id: row.workerPk,
       }));
-      console.log(calculatedRows.hours);
       setRows(calculatedRows);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -121,13 +98,8 @@ const WorkerScreen = () => {
     }
   };
 
-  // ///////사용자가 선택한 파일 (binary) 형식
   const uploadImage = async (file) => {
-    //const formData = new FormData();
-    //formData.append("file", file);
-
     try {
-      console.log("이미지 post", file);
       const response = await axios.post(
         "http://dstj-env.eba-bienmeha.ap-northeast-2.elasticbeanstalk.com/upload",
         file,
@@ -137,7 +109,6 @@ const WorkerScreen = () => {
           },
         }
       );
-
       return response.data.imgurl2; // 서버에서 반환된 URL
     } catch (error) {
       console.error("Error uploading file:", error.response.data);
@@ -147,14 +118,13 @@ const WorkerScreen = () => {
 
   const handleAddOrUpdate = async () => {
     try {
-      let imageUrl = formData.imgurl2;
+      let imageUrl = formData.imageUrl;
 
       if (imageFile) {
-        //imageUrl = await uploadImage(imageFile);
-        console.log("imageUrl ", imageUrl);
+        imageUrl = await uploadImage(imageFile);
       }
 
-      const data = { ...formData, imageUrl }; //update 용 수정
+      const data = { ...formData, imageUrl };
       const { id, ...dataWithoutId } = formData;
       const add_data = {
         username: dataWithoutId.username,
@@ -162,56 +132,24 @@ const WorkerScreen = () => {
         userNickname: dataWithoutId.userNickName,
         userAddress: dataWithoutId.userAddress,
         userPhoneNumber: dataWithoutId.userPhoneNumber,
-        workerSalary: Number(dataWithoutId.workerSalary), // 숫자 형식으로 변환
+        workerSalary: Number(dataWithoutId.workerSalary),
       };
 
-      console.log("add post 요청 시", add_data);
-
       if (formData.id) {
-        // Update row using POST request
         const updateData = {
           workerPK: formData.id,
           userNickname: formData.userNickName,
-          workerSalary: Number(formData.workerSalary), //숫자
+          workerSalary: Number(formData.workerSalary),
         };
-        const response = await updateWorker(updateData);
-        //await fetchData();
-        // setRows((prevRows) =>
-        //   prevRows.map((row) =>
-        //     row.id === formData.id
-        //       ? { ...row,
-        //           ...response,//data임
-        //           hours: calculateHours(
-        //             response.worktimeStart,
-        //             response.worktimeEnd
-        //           ),
-        //         }
-        //       : row
-        //   )
-        // );
+        await updateWorker(updateData);
       } else {
-        // Add new row using POST request
-        const response = await addWorker(
+        await addWorker(
           add_data.username,
           add_data.password,
           add_data.userNickname,
           add_data.userPhoneNumber,
           add_data.workerSalary
         );
-        console.log("add worker : ", response);
-
-        // const newId = response.data.id;
-        // setRows((prevRows) => [
-        //   ...prevRows,
-        //   {
-        //     ...response.data,
-        //     id: newId,
-        //     hours: calculateHours(
-        //       response.data.worktimeStart,
-        //       response.data.worktimeEnd
-        //     ),
-        //   },
-        // ]);
       }
       await fetchData();
       handleClose();
@@ -228,8 +166,12 @@ const WorkerScreen = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/employees/${id}`);
-      setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+      const rowToDelete = rows.find((row) => row.id === id);
+      if (rowToDelete) {
+        console.log(rowToDelete);
+        await deleteWorker(rowToDelete.username);
+        setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+      }
     } catch (error) {
       console.error("Error deleting data:", error);
     }
@@ -356,7 +298,7 @@ const WorkerScreen = () => {
     {
       field: "actions",
       headerName: "Actions",
-      width: 150,
+      width: 200, // Increase the width to ensure buttons fit
       sortable: false,
       renderCell: (params) => (
         <>
@@ -376,7 +318,22 @@ const WorkerScreen = () => {
           >
             Edit
           </Button>
-          <Button onClick={() => handleDelete(params.id)}>삭제</Button>
+          <Button
+            onClick={() => handleDelete(params.row.id)} // Pass params.row.id instead of params
+            sx={{
+              width: "auto",
+              backgroundColor: "#E57373",
+              margin: "10px",
+              color: "white",
+              fontSize: "11px",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#C62828",
+              },
+            }}
+          >
+            Delete
+          </Button>
         </>
       ),
     },
@@ -404,7 +361,7 @@ const WorkerScreen = () => {
               },
             }}
           >
-            직원 추가
+            Add Worker
           </Button>
         </div>
         <DataGrid
@@ -417,14 +374,14 @@ const WorkerScreen = () => {
           sortingOrder={["asc", "desc"]}
           sortModel={sortModel}
           disableColumnMenu={true}
-          getRowId={(row) => row.workerPk} // Add this line to use workerPk as the row ID
+          getRowId={(row) => row.id} // Use 'id' as the row ID
         />
 
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
-            <h2>{formData.id ? "직원 정보 수정" : "직원 추가"}</h2>
+            <h2>{formData.id ? "Edit Worker" : "Add Worker"}</h2>
             <TextField
-              label="유저이름"
+              label="Username"
               name="username"
               value={formData.username}
               onChange={handleFormChange}
@@ -432,7 +389,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="비밀번호"
+              label="Password"
               name="password"
               value={formData.password}
               onChange={handleFormChange}
@@ -441,7 +398,7 @@ const WorkerScreen = () => {
               type="password"
             />
             <TextField
-              label="성함"
+              label="Name"
               name="userNickName"
               value={formData.userNickName}
               onChange={handleFormChange}
@@ -449,7 +406,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="주소"
+              label="Address"
               name="userAddress"
               value={formData.userAddress}
               onChange={handleFormChange}
@@ -457,7 +414,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="개인 전화번호"
+              label="Phone Number"
               name="userPhoneNumber"
               value={formData.userPhoneNumber}
               onChange={handleFormChange}
@@ -465,7 +422,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="급여"
+              label="Salary"
               name="workerSalary"
               value={formData.workerSalary}
               onChange={handleFormChange}
@@ -499,7 +456,7 @@ const WorkerScreen = () => {
                 "&:hover": { backgroundColor: "#344889" },
               }}
             >
-              {formData.id ? "업데이트" : "추가"}
+              {formData.id ? "Update" : "Add"}
             </Button>
           </Box>
         </Modal>
