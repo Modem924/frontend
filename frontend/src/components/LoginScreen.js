@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "./api";
 
-const LoginScreen = ({ setToken }) => {
+const LoginScreen = ({ setToken, setGrantedAuthorities }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -11,31 +11,25 @@ const LoginScreen = ({ setToken }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      console.log("Sending login request...");
-      console.log(id, password);
       const data = await login(id, password);
       console.log(data);
       const { accessToken } = data;
       const auth = data.grantedAuthorities;
       localStorage.setItem("jwtToken", accessToken);
       localStorage.setItem("grantedAuthorities", auth);
-      setToken(data.accessToken); //
-
+      setToken(data.accessToken);
       setGrantedAuthorities(auth);
       setError("");
 
       if (accessToken) {
         alert("Login successful");
-        console.log("auth : ", auth);
 
         if (auth === "Master") {
           navigate("/master");
-        }
-        if (auth === "Worker") {
+        } else if (auth === "Worker") {
           navigate("/service");
-        }
-        if (auth === "Member") {
-          navigate("/report/:userPK");
+        } else if (auth === "Member") {
+          navigate(`/report/${data.userPK}`);
         } else {
           navigate("/");
         }
@@ -43,7 +37,7 @@ const LoginScreen = ({ setToken }) => {
         alert("Invalid email or password");
       }
     } catch (err) {
-      setError("error, please try again.");
+      setError("Error, please try again.");
     }
   };
 
@@ -86,7 +80,7 @@ const LoginScreen = ({ setToken }) => {
       marginBottom: "15px",
     },
     input: {
-      width: "calc(100% - 20px)", // Padding을 고려하여 너비 조정
+      width: "calc(100% - 20px)",
       padding: "10px",
       border: "1px solid #ccc",
       borderRadius: "3px",
@@ -94,11 +88,11 @@ const LoginScreen = ({ setToken }) => {
       boxSizing: "border-box",
     },
     button: {
-      width: "calc(100% - 20px)", // Padding을 고려하여 너비 조정
+      width: "calc(100% - 20px)",
       padding: "10px",
       border: "none",
       borderRadius: "3px",
-      backgroundColor: "#A1BBDE", // 버튼 색상 변경
+      backgroundColor: "#A1BBDE",
       color: "#fff",
       fontSize: "16px",
       cursor: "pointer",
@@ -141,7 +135,7 @@ const LoginScreen = ({ setToken }) => {
       <div style={styles.rightPanel}>
         <div style={styles.form}>
           <h2 style={styles.heading}>System Login</h2>
-          <form>
+          <form onSubmit={handleLogin}>
             <div style={styles.inputGroup}>
               <input
                 type="text"
@@ -167,7 +161,7 @@ const LoginScreen = ({ setToken }) => {
               />
             </div>
             {error && <div style={styles.errorMessage}>{error}</div>}
-            <button onClick={handleLogin} style={styles.button}>
+            <button type="submit" style={styles.button}>
               Login
             </button>
             <button

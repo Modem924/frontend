@@ -1,6 +1,5 @@
-import "./App.css";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   AppPaperScreen,
   LoginScreen,
@@ -19,29 +18,11 @@ import {
 } from "./components";
 
 const App = () => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(localStorage.getItem("jwtToken"));
   const [grantedAuthorities, setGrantedAuthorities] = useState(
     localStorage.getItem("grantedAuthorities")
   );
-  const navigate = useNavigate();
-  useEffect(() => {
-    // grantedAuthorities 값 출력
-    console.log("Granted Authorities:", grantedAuthorities);
 
-    // if (grantedAuthorities) {
-    //   if (grantedAuthorities === "Master") {
-    //     navigate("/master");
-    //   }
-    //   if (grantedAuthorities === "Worker") {
-    //     navigate("/service");
-    //   }
-    //   if (grantedAuthorities === "Member") {
-    //     navigate("/report/:userPK");
-    //   } else {
-    //     navigate("/");
-    //   }
-    // }
-  }, [grantedAuthorities, navigate]);
   return (
     <BrowserRouter>
       <AppPaperScreen>
