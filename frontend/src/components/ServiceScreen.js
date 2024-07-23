@@ -17,7 +17,8 @@ import Pagination from '@mui/material/Pagination';
 import { getService, addService } from './api';
 
 const workerId = localStorage.getItem('username');
-console.log('workerid: ', workerId);
+console.log('workerId: ', workerId);
+
 const filters = [
   { value: '', label: 'All' },
   { value: '월', label: '월요일' },
@@ -34,6 +35,7 @@ const ServiceScreen = () => {
   const [APIData, setAPIData] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('');
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     eduName: '',
@@ -58,17 +60,31 @@ const ServiceScreen = () => {
       });
   }, []);
 
-  const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-    if (searchValue !== '') {
-      const filteredData = APIData.filter((item) => {
-        return Object.values(item).join('').toLowerCase().includes(searchValue.toLowerCase());
-      });
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(APIData);
+  const filterItems = () => {
+    let results = APIData;
+
+    // Filter by search input
+    if (searchInput !== '') {
+      results = results.filter((item) =>
+        item.eduName.toLowerCase().includes(searchInput.toLowerCase())
+      );
     }
+
+    // Filter by selected filter
+    if (selectedFilter !== '') {
+      if (selectedFilter === workerId) {
+        results = results.filter((item) => item.workerId === workerId);
+      } else {
+        results = results.filter((item) => item.eduDay === selectedFilter);
+      }
+    }
+
+    setFilteredResults(results);
   };
+
+  useEffect(() => {
+    filterItems();
+  }, [searchInput, selectedFilter, APIData]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -121,7 +137,7 @@ const ServiceScreen = () => {
             <Box display="flex" alignItems="center" sx={{ width: 500, maxWidth: '100%' }}>
               <TextField
                 label='Search'
-                onChange={(e) => searchItems(e.target.value)}
+                onChange={(e) => setSearchInput(e.target.value)}
                 fullWidth
               />
             </Box>
@@ -141,8 +157,8 @@ const ServiceScreen = () => {
                 id="filters"
                 select
                 label="Select"
-                defaultValue="All"
-                onChange={(e) => searchItems(e.target.value)}
+                defaultValue=""
+                onChange={(e) => setSelectedFilter(e.target.value)}
               >
                 {filters.map((option) => (
                   <MenuItem key={option.value} value={option.value}>

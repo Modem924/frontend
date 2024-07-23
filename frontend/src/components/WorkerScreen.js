@@ -153,13 +153,14 @@ const WorkerScreen = () => {
 
   // ///////사용자가 선택한 파일 (binary) 형식
   const uploadImage = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
+    //const formData = new FormData();
+    //formData.append("file", file);
 
     try {
+      console.log("이미지 post", file);
       const response = await axios.post(
         "http://dstj-env.eba-bienmeha.ap-northeast-2.elasticbeanstalk.com/upload",
-        formData,
+        file,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -180,11 +181,19 @@ const WorkerScreen = () => {
 
       if (imageFile) {
         imageUrl = await uploadImage(imageFile);
+        console.log("imageUrl ", imageUrl);
       }
 
       const data = { ...formData, imageUrl }; //update 용 수정
       const { id, ...dataWithoutId } = formData;
-      const add_data = dataWithoutId;
+      const add_data = {
+        username: dataWithoutId.username,
+        password: dataWithoutId.password,
+        userNickname: dataWithoutId.userNickName,
+        userAddress: dataWithoutId.userAddress,
+        userPhoneNumber: dataWithoutId.userPhoneNumber,
+        workerSalary: Number(dataWithoutId.workerSalary), // 숫자 형식으로 변환
+      };
       console.log("add post 요청 시", add_data);
 
       if (formData.id) {
@@ -212,18 +221,19 @@ const WorkerScreen = () => {
       } else {
         // Add new row using POST request
         const response = await addWorker(add_data);
-        const newId = response.data.id;
-        setRows((prevRows) => [
-          ...prevRows,
-          {
-            ...response.data,
-            id: newId,
-            hours: calculateHours(
-              response.data.worktimeStart,
-              response.data.worktimeEnd
-            ),
-          },
-        ]);
+        await fetchData();
+        // const newId = response.data.id;
+        // setRows((prevRows) => [
+        //   ...prevRows,
+        //   {
+        //     ...response.data,
+        //     id: newId,
+        //     hours: calculateHours(
+        //       response.data.worktimeStart,
+        //       response.data.worktimeEnd
+        //     ),
+        //   },
+        // ]);
       }
 
       handleClose();
