@@ -6,7 +6,6 @@ import SigninScreen from "./SigninScreen";
 import ServiceScreen from "./ServiceScreen";
 import SignupScreen from "./SignupScreen";
 import Logout from "./Logout";
-import Testy from "./Testy";
 import IndividualService from "./IndividualService";
 import ReportScreen from "./ReportScreen";
 import FaceDetection from "./FaceDetection";
@@ -24,7 +23,6 @@ export {
   ServiceScreen,
   SignupScreen,
   Logout,
-  Testy,
   IndividualService,
   ReportScreen,
   FaceDetection,

@@ -9,7 +9,6 @@ import {
   ServiceScreen,
   SignupScreen,
   Logout,
-  Testy,
   IndividualService,
   ReportScreen,
   HealthDataAnalyzer,
@@ -31,14 +30,9 @@ const App = () => {
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/service" element={<ServiceScreen />} />
           <Route path="/signupscreen" element={<SignupScreen />} />
-          <Route path="/testy/:userPK" element={<Testy />} />
           <Route path="/report/:userPK" element={<ReportScreen />} />
           <Route path="/logout" element={<Logout setToken={setToken} />} />
           <Route path="/:eduPK/members" element={<IndividualService />} />
-          <Route
-            path="/api/edu/:eduPK/members"
-            element={<IndividualService />}
-          />
           <Route path="/upload" element={<UploadVer1 />} />
           <Route path="/analyze" element={<HealthDataAnalyzer />} />
           <Route path="/face-detection" element={<FaceDetection />} />
