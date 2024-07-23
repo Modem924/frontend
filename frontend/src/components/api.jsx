@@ -158,7 +158,7 @@ export const updateWorker = async (data) => {
     console.error("Error updating worker:", error);
   }
 };
-    
+
 export const getMemberDetails = async (userPK) => {
   try {
     const response = await axiosInstance.get(`/api/members/${userPK}`);
@@ -169,7 +169,10 @@ export const getMemberDetails = async (userPK) => {
       throw new Error('Invalid response format');
     }
   } catch (error) {
-    console.error('Error fetching member details:', error.response ? error.response.data : error.message);
+    console.error(
+      "Error fetching member details:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
@@ -178,7 +181,7 @@ export const getMemberDetails = async (userPK) => {
 
 export const getMasterMain = async () => {
   try {
-    const response = await axiosInstance.get('/masters/main');
+    const response = await axiosInstance.get("/masters/main");
     return response.data;
   } catch (error) {
     console.error("Error fetching master main data:", error);
