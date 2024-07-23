@@ -176,7 +176,7 @@ const FaceDetection = () => {
       const base64Image = dataUrl.split(',')[1];
 
       try {
-        const response = await fetch('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL_9/attendance', {
+        const response = await fetch('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/REAL_FINAL/attendance', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -83,7 +83,7 @@ const Button = styled.button`
 
 const Result = styled.div`
   background-color: #DAE6F4;
-  padding: 30px; /* 패딩을 30px로 늘림 */
+  padding: 30px;
   border-radius: 8px;
   border: 1px solid #DAE6F4;
   text-align: left;
@@ -122,7 +122,7 @@ const HealthDataAnalyzer = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/Integration/upload_report', {
+      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/REAL_FINAL/upload_report', {
         user_id: userId,
       });
       setResult(response.data.response);
