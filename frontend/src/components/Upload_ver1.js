@@ -3,7 +3,7 @@ import AWS from 'aws-sdk';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader';
 import styled, { createGlobalStyle } from 'styled-components';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './Navbar_master';
 
 const GlobalStyle = createGlobalStyle`
   body, html {

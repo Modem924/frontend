@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "./Navbar_master";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Button,

@@ -1,6 +1,6 @@
 import React from "react";
 import AttendanceScreen from "./AttendanceScreen";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "./Navbar_master";
 const styles = {
   mainPage: {
     padding: "20px",

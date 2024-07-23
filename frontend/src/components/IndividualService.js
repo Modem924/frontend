@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './Navbar_master';
 
 const IndividualService = () => {
   const { eduPK } = useParams();

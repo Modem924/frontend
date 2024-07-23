@@ -15,7 +15,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import NavigationBar from './NavigationBar.js';
+import NavigationBar from './Navbar_master';
 
 
 

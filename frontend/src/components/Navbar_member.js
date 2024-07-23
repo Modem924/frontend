@@ -15,17 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-const navItems = [
-  { label: "Home", path: "/master" },
-  { label: "Workers", path: "/workerscreen" },
-  { label: "Upload", path: "/upload" },
-  { label: "FaceDetection", path: "/face-detection" },
-  { label: "Analyzer", path: "/analyze" },
-  { label: "Service", path: "/service" },
-  { label: "Attendance", path: "/attendance" },
-];
-
-export default function NavigationBar() {
+export default function Navbar_member() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -33,25 +23,6 @@ export default function NavigationBar() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item.label} disablePadding>
-            <ListItemButton component={Link} to={item.path}>
-              <ListItemText primary={item.label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/logout">
-            <ListItemText primary="로그아웃" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
-  );
 
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
@@ -79,18 +50,6 @@ export default function NavigationBar() {
             </IconButton>
             <img src={require('./../util/logo.png')} alt="Logo" style={{ width: "100px", marginLeft: '16px' }} />
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', flexGrow: 1 }}>
-            {navItems.map((item) => (
-              <Button
-                key={item.label}
-                component={Link}
-                to={item.path}
-                sx={{ color: '#333333', fontSize: '16px', fontWeight: 'bold', textTransform: 'none', margin: '0 12px' }}
-              >
-                {item.label}
-              </Button>
-            ))}
-          </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '12px' }}>
             
             <Button
@@ -115,20 +74,6 @@ export default function NavigationBar() {
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
       </Box>
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
-        }}
-      >
-        {drawer}
-      </Drawer>
     </Box>
   );
 }
