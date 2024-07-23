@@ -148,11 +148,13 @@ const IndividualService = () => {
           margin="normal"
         />
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-          <Button variant="contained" onClick={handleUpdateService} sx={{ mr: 2 }}>
-            Update
+          <Button variant="contained" onClick={handleUpdateService} sx={{mr: 2, backgroundColor:'#789CCD',
+          '&:hover': { backgroundColor: '#344889' }}}>
+            업데이트
           </Button>
-          <Button variant="contained" color="error" onClick={handleDeleteService} sx={{ ml: 2 }}>
-            Delete Service
+          <Button variant="contained" color="error" onClick={handleDeleteService} sx={{ ml: 2, backgroundColor:'#D9534F',
+          '&:hover': { backgroundColor: '#AF2F22' } }}>
+            수업 삭제
           </Button>
         </Box>
         <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
@@ -186,11 +188,13 @@ const IndividualService = () => {
             margin="normal"
           />
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Button variant="contained" onClick={handleAddMember} sx={{ ml: 2 }}>
-              Add
+            <Button variant="contained" onClick={handleAddMember} sx={{ ml: 2, backgroundColor:'#789CCD',
+          '&:hover': { backgroundColor: '#344889' }}}>
+              추가
             </Button>
-            <Button variant="contained" color="error" onClick={handleDeleteMembers} sx={{ ml: 2 }}>
-              Delete
+            <Button variant="contained" color="error" onClick={handleDeleteMembers} sx={{ ml: 2, backgroundColor:'#D9534F',
+          '&:hover': { backgroundColor: '#AF2F22' } }}>
+              삭제
             </Button>
           </Box>
         </Box>

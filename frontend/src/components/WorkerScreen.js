@@ -479,7 +479,9 @@ const WorkerScreen = () => {
               onClick={handleAddOrUpdate}
               variant="contained"
               color="primary"
-            >
+              sx={{backgroundColor:'#789CCD',
+              '&:hover': { backgroundColor: '#344889' }}}
+              >
               {formData.id ? "업데이트" : "추가"}
             </Button>
           </Box>
