@@ -6,7 +6,6 @@ import {
   LoginScreen,
   MasterScreen,
   SigninScreen,
-  Attendance,
   ServiceScreen,
   SignupScreen,
   Logout,
@@ -30,7 +29,6 @@ const App = () => {
           <Route path="/" element={<LoginScreen setToken={setToken} />} />
           <Route path="/master" element={<MasterScreen />} />
           <Route path="/signin" element={<SigninScreen />} />
-          <Route path="/attendance" element={<Attendance />} />
           <Route path="/service" element={<ServiceScreen />} />
           <Route path="/signupscreen" element={<SignupScreen />} />
           <Route path="/testy/:userPK" element={<Testy />} />
@@ -45,7 +43,7 @@ const App = () => {
           <Route path="/analyze" element={<HealthDataAnalyzer />} />
           <Route path="/face-detection" element={<FaceDetection />} />
           <Route path="/workerscreen" element={<WorkerScreen />} />
-          <Route path="/attendancescreen" element={<Attendancestyle />} />
+          <Route path="/attendance" element={<Attendancestyle />} />
         </Routes>
       </AppPaperScreen>
     </BrowserRouter>

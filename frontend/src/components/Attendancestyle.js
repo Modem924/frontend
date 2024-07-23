@@ -26,7 +26,6 @@ const Attendancestyle = () => {
       <div style={styles.mainPage}>
         <div style={styles.dashboard}>
           <div style={styles.section}>
-            <h1>회원 월별 ATTENDANCE</h1>
             <AttendanceScreen />
           </div>
         </div>
