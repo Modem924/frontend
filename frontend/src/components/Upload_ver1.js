@@ -192,7 +192,7 @@ const OcrComponent = () => {
     setLoading(true); // 로딩 시작
 
     try {
-      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL_7/upload_inbody', {
+      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/REAL_FINAL/upload_inbody', {
         file_name: fileName
       }, {
         headers: {
@@ -268,7 +268,7 @@ const OcrComponent = () => {
     console.log('Sending data to server:', dataToSend);
 
     try {
-      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/FINAL_8/Inbody_To_DB', 
+      const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/REAL_FINAL/Inbody_To_DB', 
         dataToSend, 
         {
           headers: {
