@@ -83,8 +83,9 @@ const WorkerScreen = () => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const newValue = name === 'workerSalary' ? (value === '' ? 0 : Number(value)) : value;
+    setFormData({ ...formData, [name]: newValue });
+  };  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -119,36 +120,31 @@ const WorkerScreen = () => {
   const handleAddOrUpdate = async () => {
     try {
       let imageUrl = formData.imageUrl;
-
+  
       if (imageFile) {
         imageUrl = await uploadImage(imageFile);
       }
-
-      const data = { ...formData, imageUrl };
-      const { id, ...dataWithoutId } = formData;
-      const add_data = {
-        username: dataWithoutId.username,
-        password: dataWithoutId.password,
-        userNickname: dataWithoutId.userNickName,
-        userAddress: dataWithoutId.userAddress,
-        userPhoneNumber: dataWithoutId.userPhoneNumber,
-        workerSalary: Number(dataWithoutId.workerSalary),
+  
+      const updatedData = {
+        ...formData,
+        imageUrl,
+        workerSalary: Number(formData.workerSalary)
       };
-
+  
       if (formData.id) {
         const updateData = {
           workerPK: formData.id,
           userNickname: formData.userNickName,
-          workerSalary: Number(formData.workerSalary),
+          workerSalary: updatedData.workerSalary
         };
         await updateWorker(updateData);
       } else {
         await addWorker(
-          add_data.username,
-          add_data.password,
-          add_data.userNickname,
-          add_data.userPhoneNumber,
-          add_data.workerSalary
+          updatedData.username,
+          updatedData.password,
+          updatedData.userNickName,
+          updatedData.userPhoneNumber,
+          updatedData.workerSalary
         );
       }
       await fetchData();
@@ -156,7 +152,7 @@ const WorkerScreen = () => {
     } catch (error) {
       console.error("Error adding/updating data:", error);
     }
-  };
+  };  
 
   const handleEditClick = (params) => {
     setFormData(params.row);

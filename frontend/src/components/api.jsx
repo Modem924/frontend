@@ -1,4 +1,3 @@
-import axios from "axios";
 import axiosInstance, { logout } from "./axiosConfig";
 
 export const login = async (username, password) => {
