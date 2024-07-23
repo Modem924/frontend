@@ -16,13 +16,29 @@ const LoginScreen = ({ setToken }) => {
       const data = await login(id, password);
       console.log(data);
       const { accessToken } = data;
+      const auth = data.grantedAuthorities;
       localStorage.setItem("jwtToken", accessToken);
-      setToken(data.accessToken);
+      localStorage.setItem("grantedAuthorities", auth);
+      setToken(data.accessToken); //
+
+      setGrantedAuthorities(auth);
       setError("");
 
       if (accessToken) {
         alert("Login successful");
-        navigate("/master");
+        console.log("auth : ", auth);
+
+        if (auth === "Master") {
+          navigate("/master");
+        }
+        if (auth === "Worker") {
+          navigate("/service");
+        }
+        if (auth === "Member") {
+          navigate("/report/:userPK");
+        } else {
+          navigate("/");
+        }
       } else {
         alert("Invalid email or password");
       }
@@ -115,7 +131,10 @@ const LoginScreen = ({ setToken }) => {
           />
           <h1 style={styles.leftPanelTitle}>Business Resource Management</h1>
           <p style={styles.leftPanelText}>
-            DSTJ 솔루션은 HRM과 CRM 을 모두 처리할 수 있는 자원관리 시스템으로 사내 조직관리 및 근태와 고객 관리 기능을 제공하며 이를 바탕으로 사내 자원의 총제적인 관리를 돕습니다. 이를 통해 보다 효율적인 업무와 전사적 차원에서의 최적화된 관리를 제안합니다.
+            DSTJ 솔루션은 HRM과 CRM 을 모두 처리할 수 있는 자원관리 시스템으로
+            사내 조직관리 및 근태와 고객 관리 기능을 제공하며 이를 바탕으로 사내
+            자원의 총제적인 관리를 돕습니다. 이를 통해 보다 효율적인 업무와
+            전사적 차원에서의 최적화된 관리를 제안합니다.
           </p>
         </div>
       </div>
