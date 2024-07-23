@@ -76,6 +76,11 @@ export const deleteService = async (eduPK) => {
   return response.data;
 };
 
+export const deleteUser = async (username) => {
+  const response = await axiosInstance.post("/del_member", { username });
+  return response.data;
+};
+
 export const updateService = async (
   eduPK,
   eduName,
@@ -156,8 +161,13 @@ export const updateWorker = async (data) => {
 
 export const getMemberDetails = async (userPK) => {
   try {
-    const response = await axios.get(`/api/members/${userPK}`);
-    return response.data;
+    const response = await axiosInstance.get(`/api/members/${userPK}`);
+    if (response.data && response.data.meminfo) {
+      console.log(response.data.meminfo);
+      return response.data.meminfo;
+    } else {
+      throw new Error('Invalid response format');
+    }
   } catch (error) {
     console.error(
       "Error fetching member details:",
@@ -166,6 +176,8 @@ export const getMemberDetails = async (userPK) => {
     throw error;
   }
 };
+
+
 
 export const getMasterMain = async () => {
   try {
@@ -180,3 +192,4 @@ export const getMasterMain = async () => {
 export const userLogout = () => {
   logout();
 };
+
