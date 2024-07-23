@@ -73,7 +73,7 @@ const ServiceScreen = () => {
     // Filter by selected filter
     if (selectedFilter !== '') {
       if (selectedFilter === workerId) {
-        results = results.filter((item) => item.workerId === workerId);
+        results = results.filter((item) => item.username === workerId);
       } else {
         results = results.filter((item) => item.eduDay === selectedFilter);
       }

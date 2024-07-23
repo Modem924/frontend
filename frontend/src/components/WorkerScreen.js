@@ -382,8 +382,8 @@ const WorkerScreen = () => {
       sortable: false,
       renderCell: (params) => (
         <>
-          <Button onClick={() => handleEditClick(params)}>Edit</Button>
-          <Button onClick={() => handleDelete(params.id)}>Delete</Button>
+          <Button onClick={() => handleEditClick(params)}>수정</Button>
+          <Button onClick={() => handleDelete(params.id)}>삭제</Button>
         </>
       ),
     },
@@ -393,7 +393,7 @@ const WorkerScreen = () => {
     <div>
       <NavigationBar />
       <div style={{ height: 400, width: "100%" }}>
-        <Button onClick={handleOpen}>Add Employee</Button>
+        <Button onClick={handleOpen}>직원 추가</Button>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -409,9 +409,9 @@ const WorkerScreen = () => {
 
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
-            <h2>{formData.id ? "Edit Employee" : "Add Employee"}</h2>
+            <h2>{formData.id ? "직원 정보 수정" : "직원 추가"}</h2>
             <TextField
-              label="Username"
+              label="유저이름"
               name="username"
               value={formData.username}
               onChange={handleFormChange}
@@ -419,7 +419,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Password"
+              label="비밀번호"
               name="password"
               value={formData.password}
               onChange={handleFormChange}
@@ -428,7 +428,7 @@ const WorkerScreen = () => {
               type="password"
             />
             <TextField
-              label="Name"
+              label="성함"
               name="userNickName"
               value={formData.userNickName}
               onChange={handleFormChange}
@@ -436,7 +436,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Address"
+              label="주소"
               name="userAddress"
               value={formData.userAddress}
               onChange={handleFormChange}
@@ -444,7 +444,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Phone Number"
+              label="개인 전화번호"
               name="userPhoneNumber"
               value={formData.userPhoneNumber}
               onChange={handleFormChange}
@@ -452,7 +452,7 @@ const WorkerScreen = () => {
               margin="normal"
             />
             <TextField
-              label="Salary"
+              label="급여"
               name="workerSalary"
               value={formData.workerSalary}
               onChange={handleFormChange}
@@ -482,7 +482,7 @@ const WorkerScreen = () => {
               variant="contained"
               color="primary"
             >
-              {formData.id ? "Update" : "Add"}
+              {formData.id ? "업데이트" : "추가"}
             </Button>
           </Box>
         </Modal>
