@@ -1,6 +1,6 @@
 import AppPaperScreen from "./AppPaperScreen";
 import LoginScreen from "./LoginScreen";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "./Navbar_master";
 import MasterScreen from "./MasterScreen";
 import SigninScreen from "./SigninScreen";
 import ServiceScreen from "./ServiceScreen";

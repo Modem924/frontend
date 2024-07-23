@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as faceapi from 'face-api.js';
-import NavigationBar from './NavigationBar';
+import NavigationBar from './Navbar_master';
 
 const styles = {
   body: {
