@@ -5,13 +5,12 @@ import { userLogout } from "./api";
 const Logout = ({ setToken }) => {
   const navigate = useNavigate();
   alert("로그아웃 하시겠습니까?");
-  const handleLogout = () => {
-    userLogout();
-    setToken(null);
-    navigate("/");
-  };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  userLogout();
+  setToken(null);
+  navigate("/");
+
+  return null;
 };
 
 export default Logout;
