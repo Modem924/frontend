@@ -42,7 +42,12 @@ const SignupScreen = () => {
     } catch (err) {
       // setError("error, please try again.");
     }
-  }; //handleSignup
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
   return (
     <div className="signup-container">
@@ -124,7 +129,7 @@ const SignupScreen = () => {
 
         <div className="button-group">
           <button onClick={handleSignup}>Signup</button>
-          <button type="submit">Cancel</button>
+          <button onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>
