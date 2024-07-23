@@ -45,35 +45,6 @@ const style = {
   p: 4,
 };
 
-// const calculateHours = (start, end) => {
-//   // 다양한 형식을 지원하기 위해 시간 문자열을 파싱
-//   const startFormats = ["HH:mm:ss.SSS", "HH:mm:ss", "HH:mm"];
-//   const endFormats = ["HH:mm:ss.SSS", "HH:mm:ss", "HH:mm"];
-
-//   let startTime, endTime;
-
-//   for (const format of startFormats) {
-//     startTime = dayjs(start, format);
-//     console.log(`Hours worked: ${startTime} hours`);
-//     if (startTime.isValid()) break;
-//   }
-
-//   for (const format of endFormats) {
-//     endTime = dayjs(end, format);
-//     if (endTime.isValid()) break;
-//   }
-
-//   if (!startTime.isValid() || !endTime.isValid()) {
-//     console.error("Invalid date format");
-//     return NaN;
-//   }
-
-//   const diff = dayjs.duration(endTime.diff(startTime));
-//   const hours = diff.asHours();
-
-//   return hours;
-// };
-
 const calculateHours = (start, end) => {
   return end.substring(0, 2) - start.substring(0, 2);
 };
@@ -99,7 +70,7 @@ const WorkerScreen = () => {
   const fetchData = async () => {
     try {
       const response = await getWorkers();
-      console.log(response);
+      console.log("getworkers : ", response);
       const calculatedRows = response.map((row) => ({
         ...row,
         hours: calculateHours(row.worktimeStart, row.worktimeEnd),
@@ -179,7 +150,7 @@ const WorkerScreen = () => {
       let imageUrl = formData.imgurl2;
 
       if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
+        //imageUrl = await uploadImage(imageFile);
         console.log("imageUrl ", imageUrl);
       }
 
@@ -193,6 +164,7 @@ const WorkerScreen = () => {
         userPhoneNumber: dataWithoutId.userPhoneNumber,
         workerSalary: Number(dataWithoutId.workerSalary), // 숫자 형식으로 변환
       };
+
       console.log("add post 요청 시", add_data);
 
       if (formData.id) {
@@ -203,7 +175,7 @@ const WorkerScreen = () => {
           workerSalary: Number(formData.workerSalary), //숫자
         };
         const response = await updateWorker(updateData);
-        await fetchData();
+        //await fetchData();
         // setRows((prevRows) =>
         //   prevRows.map((row) =>
         //     row.id === formData.id
@@ -219,8 +191,15 @@ const WorkerScreen = () => {
         // );
       } else {
         // Add new row using POST request
-        const response = await addWorker(add_data);
-        await fetchData();
+        const response = await addWorker(
+          add_data.username,
+          add_data.password,
+          add_data.userNickname,
+          add_data.userPhoneNumber,
+          add_data.workerSalary
+        );
+        console.log("add worker : ", response);
+
         // const newId = response.data.id;
         // setRows((prevRows) => [
         //   ...prevRows,
@@ -234,7 +213,7 @@ const WorkerScreen = () => {
         //   },
         // ]);
       }
-
+      await fetchData();
       handleClose();
     } catch (error) {
       console.error("Error adding/updating data:", error);
@@ -381,7 +360,22 @@ const WorkerScreen = () => {
       sortable: false,
       renderCell: (params) => (
         <>
-          <Button onClick={() => handleEditClick(params)}>수정</Button>
+          <Button
+            onClick={() => handleEditClick(params)}
+            sx={{
+              width: "auto",
+              backgroundColor: "#A1BBDE",
+              margin: "10px",
+              color: "white",
+              fontSize: "11px",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#344889",
+              },
+            }}
+          >
+            Edit
+          </Button>
           <Button onClick={() => handleDelete(params.id)}>삭제</Button>
         </>
       ),
@@ -391,7 +385,28 @@ const WorkerScreen = () => {
   return (
     <div>
       <div style={{ height: 400, width: "100%" }}>
-        <Button onClick={handleOpen}>직원 추가</Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "10px",
+          }}
+        >
+          <Button
+            onClick={handleOpen}
+            sx={{
+              width: "auto",
+              backgroundColor: "#A1BBDE",
+              margin: "10px",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#344889",
+              },
+            }}
+          >
+            직원 추가
+          </Button>
+        </div>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -479,9 +494,11 @@ const WorkerScreen = () => {
               onClick={handleAddOrUpdate}
               variant="contained"
               color="primary"
-              sx={{backgroundColor:'#789CCD',
-              '&:hover': { backgroundColor: '#344889' }}}
-              >
+              sx={{
+                backgroundColor: "#789CCD",
+                "&:hover": { backgroundColor: "#344889" },
+              }}
+            >
               {formData.id ? "업데이트" : "추가"}
             </Button>
           </Box>

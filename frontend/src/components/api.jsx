@@ -134,10 +134,23 @@ export const getWorkers = async () => {
   }
 };
 /////add worker
-export const addWorker = async (worker) => {
+export const addWorker = async (
+  username,
+  password,
+  userNickname,
+  userAddress,
+  userPhoneNumber,
+  workerSalary
+) => {
   try {
+    console.log("addworker api 호출");
     const response = await axiosInstance.post("/add_worker", {
-      worker,
+      username,
+      password,
+      userNickname,
+      userAddress,
+      userPhoneNumber,
+      workerSalary,
     });
     return response.data;
   } catch (error) {
@@ -166,7 +179,7 @@ export const getMemberDetails = async (userPK) => {
       console.log(response.data.meminfo);
       return response.data.meminfo;
     } else {
-      throw new Error('Invalid response format');
+      throw new Error("Invalid response format");
     }
   } catch (error) {
     console.error(
@@ -176,8 +189,6 @@ export const getMemberDetails = async (userPK) => {
     throw error;
   }
 };
-
-
 
 export const getMasterMain = async () => {
   try {
@@ -202,4 +213,3 @@ export const getAttendance = async () => {
 export const userLogout = () => {
   logout();
 };
-
