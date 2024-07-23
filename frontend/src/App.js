@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import {
   AppPaperScreen,
