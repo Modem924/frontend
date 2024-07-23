@@ -189,6 +189,16 @@ export const getMasterMain = async () => {
   }
 };
 
+export const getAttendance = async () => {
+  try {
+    const response = await axiosInstance.get("/members/member-list");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching master main data:", error);
+    throw error;
+  }
+};
+
 export const userLogout = () => {
   logout();
 };

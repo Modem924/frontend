@@ -14,6 +14,7 @@ import FaceDetection from "./FaceDetection";
 import HealthDataAnalyzer from "./HealthDataAnalyzer";
 import UploadVer1 from "./Upload_ver1";
 import WorkerScreen from "./WorkerScreen";
+import Attendancestyle from "./Attendancestyle";
 
 export {
   AppPaperScreen,
@@ -32,4 +33,5 @@ export {
   HealthDataAnalyzer,
   UploadVer1,
   WorkerScreen,
+  Attendancestyle,
 };
