@@ -29,9 +29,10 @@ const styles = {
     boxSizing: 'border-box',
   },
   h1: {
-    color: '#00796b',
+    color: '#344889',
     fontSize: '28px',
     margin: 0,
+    marginBottom: '20px',
   },
   container: {
     width: '100%',

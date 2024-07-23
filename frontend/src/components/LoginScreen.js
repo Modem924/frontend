@@ -12,7 +12,6 @@ const LoginScreen = ({ setToken, setGrantedAuthorities }) => {
     e.preventDefault();
     try {
       const data = await login(id, password);
-      console.log(data);
       const { accessToken } = data;
       const auth = data.grantedAuthorities;
       localStorage.setItem("jwtToken", accessToken);
@@ -67,6 +66,11 @@ const LoginScreen = ({ setToken, setGrantedAuthorities }) => {
     },
     logo: {
       marginBottom: "20px",
+      width:"50%",
+      height:"50%",
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
     heading: {
       textAlign: "center",
@@ -110,7 +114,6 @@ const LoginScreen = ({ setToken, setGrantedAuthorities }) => {
       fontSize: "24px",
       fontWeight: "bold",
       marginBottom: "20px",
-      textAlign: "center",
     },
   };
 
@@ -119,7 +122,7 @@ const LoginScreen = ({ setToken, setGrantedAuthorities }) => {
       <div style={styles.leftPanel}>
         <div style={styles.leftPanelContent}>
           <img
-            src={`${process.env.PUBLIC_URL}/DSTJ_logo.png`}
+            src={`${process.env.PUBLIC_URL}/logo_.png`}
             alt="Logo"
             style={styles.logo}
           />

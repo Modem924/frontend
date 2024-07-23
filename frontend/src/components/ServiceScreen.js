@@ -167,8 +167,10 @@ const ServiceScreen = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Button variant="contained" onClick={handleClickOpen}>
-              Add
+            <Button variant="contained" onClick={handleClickOpen} sx={{backgroundColor:'#789CCD','&:hover': { 
+                      backgroundColor: '#344889' 
+                    }}}>
+              수업 추가
             </Button>
           </Grid>
         </Grid>
@@ -196,21 +198,33 @@ const ServiceScreen = () => {
         ))}
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <Pagination
+      <Pagination
           count={Math.ceil(filteredResults.length / itemsPerPage)}
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
+          sx={{
+            '& .MuiPaginationItem-root': {
+              color: '#000',
+              '&.Mui-selected': {
+                backgroundColor: '#789CCD',
+                color: '#fff',
+                '&:hover': { 
+                      backgroundColor: '#344889' 
+                    }
+              },
+            },
+          }}
         />
       </Box>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Service</DialogTitle>
+        <DialogTitle>수업 추가</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
             name="eduName"
-            label="eduName"
+            label="수업 이름"
             type="text"
             fullWidth
             variant="standard"
@@ -219,7 +233,7 @@ const ServiceScreen = () => {
           <TextField
             margin="dense"
             name="eduDay"
-            label="eduDay"
+            label="수업 요일"
             type="text"
             fullWidth
             variant="standard"
@@ -228,7 +242,7 @@ const ServiceScreen = () => {
           <TextField
             margin="dense"
             name="eduStart"
-            label="eduStart"
+            label="시작 시간"
             type="text"
             fullWidth
             variant="standard"
@@ -237,7 +251,7 @@ const ServiceScreen = () => {
           <TextField
             margin="dense"
             name="eduEnd"
-            label="eduEnd"
+            label="종료 시간"
             type="text"
             fullWidth
             variant="standard"
@@ -246,7 +260,7 @@ const ServiceScreen = () => {
           <TextField
             margin="dense"
             name="workerId"
-            label="workerId"
+            label="강사 아이디"
             type="text"
             fullWidth
             variant="standard"
@@ -255,7 +269,7 @@ const ServiceScreen = () => {
           <TextField
             margin="dense"
             name="eduTuition"
-            label="eduTuition"
+            label="수강료"
             type="number"
             fullWidth
             variant="standard"
@@ -263,8 +277,8 @@ const ServiceScreen = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit}>Add</Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>추가</Button>
+          <Button onClick={handleClose}>취소</Button>
         </DialogActions>
       </Dialog>
     </div>
