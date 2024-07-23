@@ -264,10 +264,10 @@ export default function ReportScreen() {
     }
 
     const Result = styled.div`
-        background-color: #f1f8e9; /* 연한 초록색 */
-        padding: 30px; /* 패딩을 30px로 늘림 */
+        background-color: #DAE6F4;
+        padding: 30px;
         border-radius: 8px;
-        border: 1px solid #c5e1a5; /* 연한 초록색 */
+        border: 1px solid #c5e1a5;
         text-align: left;
         width: 100%;
         box-sizing: border-box;
@@ -278,7 +278,7 @@ export default function ReportScreen() {
     const Loader = styled.div`
         border: 4px solid #f3f3f3;
         border-radius: 50%;
-        border-top: 4px solid #00796b; /* 진한 초록색 */
+        border-top: 4px solid #00796b;
         width: 24px;
         height: 24px;
         animation: spin 1s linear infinite;
