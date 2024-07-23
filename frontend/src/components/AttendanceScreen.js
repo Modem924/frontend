@@ -141,12 +141,12 @@ const styles = {
     fontSize: "12px",
   },
   vacationApproved: {
-    backgroundColor: "#a1bbde",
+    backgroundColor: "#a1bbde", //a1bbde
     color: "#000",
     fontWeight: "bold",
   },
   vacationPending: {
-    backgroundColor: "#debdad",
+    backgroundColor: "#debdad", //#debdad
     color: "#000",
     fontWeight: "bold",
   },
@@ -177,17 +177,42 @@ const styles = {
 
 const AttendanceScreen = () => {
   const [data, setData] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date(2024, 8, 1));
+  const [currentDate, setCurrentDate] = useState(new Date()); // 오늘 날짜로 설정
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const fetchData = async () => {
-    //const result = getAttendance():
-    const result = mockData;
-    setData(result);
+    try {
+      const result = await getAttendance();
+      if (result && Array.isArray(result)) {
+        const groupedData = result.reduce((acc, item) => {
+          const { userNickname, createDate } = item;
+          const date = createDate || new Date().toISOString();
+          if (!acc[userNickname]) {
+            acc[userNickname] = {
+              name: userNickname || "Unknown",
+              attendance: [],
+            };
+          }
+          acc[userNickname].attendance.push({
+            date: date,
+            status: "vacation-approved",
+          });
+          return acc;
+        }, {});
+
+        const formattedData = Object.values(groupedData);
+        setData(formattedData);
+      } else {
+        console.error("Invalid data format", result);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
