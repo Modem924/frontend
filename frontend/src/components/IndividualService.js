@@ -173,10 +173,9 @@ const IndividualService = () => {
               }
             >
               <ListItemText
-                primary={member.username}
+                primary={member.userNickname}
                 onClick={() => handleMemberClick(member.userPK)}
-                sx={{ cursor: 'pointer' }} // Show a pointer cursor to indicate it's clickable
-              />
+                sx={{ cursor: 'pointer' }}/>
             </ListItem>
           ))}
         </List>
