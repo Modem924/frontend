@@ -33,7 +33,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  color: #00796b; /* 진한 초록색 */
+  color: #A1BBDE; /* 진한 초록색 */
   font-size: 36px; /* 글꼴 크기를 36px로 늘림 */
   margin-bottom: 30px; /* 아래 여백을 30px로 늘림 */
 `;
@@ -54,7 +54,7 @@ const Input = styled.input`
   box-sizing: border-box;
 
   &:focus {
-    border-color: #00796b; /* 진한 초록색 포커스 */
+    border-color: #A1BBDE
     outline: none;
   }
 `;
@@ -62,7 +62,7 @@ const Input = styled.input`
 const Button = styled.button`
   padding: 16px; /* 패딩을 16px로 늘림 */
   font-size: 18px; /* 글꼴 크기를 18px로 늘림 */
-  background-color: #00796b; /* 진한 초록색 */
+  background-color: #A1BBDE
   color: white;
   border: none;
   margin-top: 20px;
@@ -73,7 +73,7 @@ const Button = styled.button`
   box-sizing: border-box;
 
   &:hover {
-    background-color: #004d40; /* 더 진한 초록색 */
+    background-color: #344889; /* 더 진한 초록색 */
   }
 
   &:disabled {
@@ -83,10 +83,10 @@ const Button = styled.button`
 `;
 
 const Result = styled.div`
-  background-color: #f1f8e9; /* 연한 초록색 */
+  background-color: #DAE6F4; /* 연한 초록색 */
   padding: 30px; /* 패딩을 30px로 늘림 */
   border-radius: 8px;
-  border: 1px solid #c5e1a5; /* 연한 초록색 */
+  border: 1px solid #DAE6F4; /* 연한 초록색 */
   text-align: left;
   width: 100%;
   box-sizing: border-box;
@@ -97,7 +97,7 @@ const Result = styled.div`
 const Loader = styled.div`
   border: 4px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 4px solid #00796b; /* 진한 초록색 */
+  border-top: 4px solid #A1BBDE
   width: 24px;
   height: 24px;
   animation: spin 1s linear infinite;

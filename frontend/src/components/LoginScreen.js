@@ -57,6 +57,11 @@ const LoginScreen = ({ setToken }) => {
     },
     logo: {
       marginBottom: "20px",
+      width:"50%",
+      height:"50%",
+      display: "block", // 추가된 부분
+      marginLeft: "auto", // 추가된 부분
+      marginRight: "auto", // 추가된 부분
     },
     heading: {
       textAlign: "center",
@@ -93,14 +98,15 @@ const LoginScreen = ({ setToken }) => {
       color: "red",
     },
     leftPanelText: {
-      fontSize: "18px",
+      fontSize: "16px",
       textAlign: "left",
     },
     leftPanelTitle: {
       fontSize: "24px",
       fontWeight: "bold",
       marginBottom: "20px",
-      textAlign: "center",
+      //textAlign: "center",
+      //color:"#0B368C",
     },
   };
 
@@ -109,13 +115,15 @@ const LoginScreen = ({ setToken }) => {
       <div style={styles.leftPanel}>
         <div style={styles.leftPanelContent}>
           <img
-            src={`${process.env.PUBLIC_URL}/DSTJ_logo.png`}
+            src={`${process.env.PUBLIC_URL}/logo_.png`}
             alt="Logo"
             style={styles.logo}
           />
           <h1 style={styles.leftPanelTitle}>Business Resource Management</h1>
           <p style={styles.leftPanelText}>
-            DSTJ 솔루션은 HRM과 CRM 을 모두 처리할 수 있는 자원관리 시스템으로 사내 조직관리 및 근태와 고객 관리 기능을 제공하며 이를 바탕으로 사내 자원의 총제적인 관리를 돕습니다. 이를 통해 보다 효율적인 업무와 전사적 차원에서의 최적화된 관리를 제안합니다.
+          FAST 솔루션은 HRM과 CRM을 통합하여 사내 자원 관리의 모든 측면을 포괄하는 혁신적인 시스템입니다. 
+          이 솔루션은 구성원의 근태 관리와 고객 관리 기능을 제공하여, 기업 내 자원을 총체적으로 관리하고 최적화된 운영을 가능하게 합니다. 
+          이를 통해 효율적인 업무 수행과 전사적인 관리 체계를 실현하여 기업의 생산성과 경쟁력을 극대화할 수 있습니다.
           </p>
         </div>
       </div>

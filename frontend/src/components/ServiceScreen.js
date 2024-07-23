@@ -169,7 +169,9 @@ const ServiceScreen = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={2}>
-            <Button variant="contained" onClick={handleClickOpen}>
+            <Button variant="contained" onClick={handleClickOpen} sx={{backgroundColor:'#A1BBDE','&:hover': { 
+                      backgroundColor: '#344889' 
+                    }}}>
               Add
             </Button>
           </Grid>
@@ -203,6 +205,20 @@ const ServiceScreen = () => {
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
+          sx={{
+            
+            '& .MuiPaginationItem-root': {
+              color: '#000',
+              '&.Mui-selected': {
+                backgroundColor: '#A1BBDE',
+                color: '#fff',
+                '&:hover': { 
+                      backgroundColor: '#344889' 
+                    }
+              },
+            },
+            
+          }}
         />
       </Box>
       <Dialog open={open} onClose={handleClose}>

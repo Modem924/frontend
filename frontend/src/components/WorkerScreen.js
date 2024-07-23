@@ -382,7 +382,19 @@ const WorkerScreen = () => {
       sortable: false,
       renderCell: (params) => (
         <>
-          <Button onClick={() => handleEditClick(params)}>Edit</Button>
+          <Button onClick={() => handleEditClick(params)}
+            sx={{ 
+              width: 'auto', 
+              backgroundColor:"#A1BBDE", 
+              margin:"10px",
+              color:"white",
+              fontSize:"12px",
+              borderRadius:"8px",
+              '&:hover': { 
+                backgroundColor: '#344889' 
+              }
+              }}
+            >Edit</Button>
           <Button onClick={() => handleDelete(params.id)}>Delete</Button>
         </>
       ),
@@ -393,7 +405,20 @@ const WorkerScreen = () => {
     <div>
       <NavigationBar />
       <div style={{ height: 400, width: "100%" }}>
-        <Button onClick={handleOpen}>Add Employee</Button>
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: '10px' }}>
+          <Button onClick={handleOpen} 
+                  sx={{ 
+                    width: 'auto', 
+                    backgroundColor:"#A1BBDE", 
+                    margin:"10px",
+                    color:"white",
+                    borderRadius:"8px",
+                    '&:hover': { 
+                      backgroundColor: '#344889' 
+                    }
+                    }}>Add Employee</Button>
+        </div>
+        
         <DataGrid
           rows={rows}
           columns={columns}

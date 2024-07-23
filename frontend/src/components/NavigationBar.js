@@ -77,7 +77,7 @@ export default function NavigationBar() {
             >
               <MenuIcon />
             </IconButton>
-            <img src={require('./../util/logo.png')} alt="Logo" style={{ width: "100px", marginLeft: '16px' }} />
+            <img src={`${process.env.PUBLIC_URL}/logo_.png`} alt="Logo" style={{ width: "100px", marginLeft: '16px' }} />
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', flexGrow: 1 }}>
             {navItems.map((item) => (

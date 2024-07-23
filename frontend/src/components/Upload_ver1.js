@@ -63,7 +63,7 @@ const Button = styled.button`
   width: 100%;
   padding: 10px 20px;
   border: none;
-  background-color: #4CAF50;
+  background-color: #A1BBDE;
   color: white;
   cursor: pointer;
   margin-top: 10px;
@@ -71,6 +71,10 @@ const Button = styled.button`
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: #344889; // 호버 상태에서 색상 변경
   }
 `;
 
