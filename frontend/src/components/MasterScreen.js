@@ -1,32 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { DataGrid } from "@mui/x-data-grid";
-import CssBaseline from "@mui/material/CssBaseline";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import { createTheme, ThemeProvider,useTheme } from "@mui/material/styles";
+import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { BarChart } from '@mui/x-charts/BarChart';
 import { getMasterMain } from './api';
-import '../index.css'; 
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 const MasterScreen = () => {
   const [masterData, setMasterData] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const buttonLabels = ['Client','Staff','ect.'];
 
   useEffect(() => {
     getMasterMain()
@@ -40,6 +24,22 @@ const MasterScreen = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .hiddenLabels text {
+        display: none !important;
+      }
+      .MuiChartLegend-root {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const theme = createTheme({
     palette: {
       skyblue: {
@@ -50,17 +50,16 @@ const MasterScreen = () => {
       },
     },
   });
-  
+
   const styles = {
     body: {
       fontFamily: "Arial, sans-serif",
     },
-    mainPage:{
+    mainPage: {
       margin: "0 auto",
       width: "1200px",
-      justifyContent:'center',
+      justifyContent: 'center',
     },
-
     dashboard: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
@@ -87,6 +86,7 @@ const MasterScreen = () => {
       display: "flex",
       boxSizing: "border-box",
       padding: "30px",
+      overflow: "hidden",
     },
     section_in_profit: {
       backgroundColor: "#fff",
@@ -119,16 +119,38 @@ const MasterScreen = () => {
       marginBottom: "20px",
       fontSize: "18px",
       color: "#333",
-      fontFamily: "Anton SC, sans-serif", // Anton SC 폰트 적용
+      fontFamily: "Anton SC, sans-serif",
+    },
+    pieChartContainer: {
+      display: "flex",
+      alignItems: "center",
+      width: "100%",
     },
     pieChart: {
-      width: "100%",
+      width: "70%",
       height: "auto",
     },
-    label:{
-      backgroundColor:"#DAE6F4",
-      borderRadius:"8px",
-    }
+    legendContainer: {
+      width: "40%",
+      maxHeight: "250px",
+      overflowY: "auto",
+      paddingLeft: "20px",
+    },
+    legend: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+    legendItem: {
+      display: "flex",
+      alignItems: "center",
+      marginBottom: "10px",
+    },
+    legendColorBox: {
+      width: "20px",
+      height: "20px",
+      marginRight: "10px",
+    },
   };
 
   const chartSetting = {
@@ -261,7 +283,7 @@ const MasterScreen = () => {
       <LineChart
         dataset={dataset}
         series={[
-          { dataKey: 'count', label: 'Registration Count', color: "#96B3D9" }, // 색상 변경
+          { dataKey: 'count', label: 'Registration Count', color: "#96B3D9" },
         ]}
         xAxis={[{ scaleType: "point", dataKey: 'month' }]}
         width={600}
@@ -275,32 +297,58 @@ const MasterScreen = () => {
       return <p>Loading...</p>;
     }
 
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
     const data = masterData.eduRevenueList.map((edu, index) => ({
       id: index,
       value: edu.studentCount,
       label: edu.eduName,
-      color: ["#96B3D9", "#B4C4D9", "#344889", "red"][index % 4],
+      color: getRandomColor(),
     }));
 
     return (
-      <PieChart
-        series={[
-          {
-            data,
-            highlightScope: { faded: "global", highlighted: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "#D5E2F2" },
-          },
-        ]}
-        height={250}
-      />
+      <div style={styles.pieChartContainer}>
+        <div style={styles.pieChart}>
+          <PieChart
+            className="hiddenLabels"
+            series={[
+              {
+                data,
+                highlightScope: { faded: "global", highlighted: "item" },
+                faded: { innerRadius: 30, additionalRadius: -30, color: "#D5E2F2" },
+              },
+            ]}
+            height={300}
+            slotProps={{ legend: { hidden: true } }}
+          />
+        </div>
+        <div style={styles.legendContainer}>
+          <div style={styles.legend}>
+            {data.map((item) => (
+              <div key={item.id} style={styles.legendItem}>
+                <div style={{ ...styles.legendColorBox, backgroundColor: item.color }} />
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     );
   }
+
   function TypoTitle({ input_text }) {
-    const theme = useTheme(); // Use the theme
+    const theme = useTheme();
     const localTheme = createTheme({
       typography: {
         h7: {
-          fontSize: "14px", // 기본 폰트 사이즈 14px로 수정
+          fontSize: "14px",
           "@media (min-width:600px)": {
             fontSize: "1.5rem",
           },
@@ -317,16 +365,17 @@ const MasterScreen = () => {
       </ThemeProvider>
     );
   }
+
   return (
     <>
       <div style={styles.mainPage}>
         <div style={styles.dashboard}>
           <div style={styles.section}>
             <div style={{
-              display : 'inline-block', // 텍스트 크기에 맞춰 크기 조절
-              backgroundColor:"#DAE6F4",
-              borderRadius:"8px",
-              padding: "10px 20px", // 패딩 추가하여 여백 확보
+              display: 'inline-block',
+              backgroundColor: "#DAE6F4",
+              borderRadius: "8px",
+              padding: "10px 20px",
             }}>
               <TypoTitle input_text={"등록 고객"} />
             </div>
@@ -338,10 +387,10 @@ const MasterScreen = () => {
           </div>
           <div style={styles.section}>
             <div style={{
-              display : 'inline-block', // 텍스트 크기에 맞춰 크기 조절
-              backgroundColor:"#DAE6F4",
-              borderRadius:"8px",
-              padding: "10px 20px", // 패딩 추가하여 여백 확보
+              display: 'inline-block',
+              backgroundColor: "#DAE6F4",
+              borderRadius: "8px",
+              padding: "10px 20px",
             }}>
               <TypoTitle input_text={"클래스 비율"} />
             </div>
@@ -351,10 +400,10 @@ const MasterScreen = () => {
           </div>
           <div style={styles.section_coursePerformance}>
             <div style={{
-              display : 'inline-block', // 텍스트 크기에 맞춰 크기 조절
-              backgroundColor:"#DAE6F4",
-              borderRadius:"8px",
-              padding: "10px 20px", // 패딩 추가하여 여백 확보
+              display: 'inline-block',
+              backgroundColor: "#DAE6F4",
+              borderRadius: "8px",
+              padding: "10px 20px",
             }}>
               <TypoTitle input_text={"수익 차트"} />
             </div>
@@ -364,7 +413,6 @@ const MasterScreen = () => {
           </div>
         </div>
       </div>
-      
     </>
   );
 };
