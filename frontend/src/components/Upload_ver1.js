@@ -332,24 +332,24 @@ const OcrComponent = () => {
                 <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="나이" />
               </FormGroup>
               <FormGroup>
-                <label htmlFor="total_body_water">체수분 (%)</label>
-                <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (%)" />
+                <label htmlFor="total_body_water">체수분 (kg)</label>
+                <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (kg)" />
               </FormGroup>
               <FormGroup>
-                <label htmlFor="protein">단백질 (%)</label>
-                <input type="number" name="protein" value={formData.protein} onChange={handleChange} placeholder="단백질 (%)" />
+                <label htmlFor="protein">단백질 (kg)</label>
+                <input type="number" name="protein" value={formData.protein} onChange={handleChange} placeholder="단백질 (kg)" />
               </FormGroup>
               <FormGroup>
-                <label htmlFor="minerals">무기질 (%)</label>
-                <input type="number" name="minerals" value={formData.minerals} onChange={handleChange} placeholder="무기질 (%)" />
+                <label htmlFor="minerals">무기질 (kg)</label>
+                <input type="number" name="minerals" value={formData.minerals} onChange={handleChange} placeholder="무기질 (kg)" />
               </FormGroup>
               <FormGroup>
-                <label htmlFor="body_fat_mass">체지방량 (%)</label>
-                <input type="number" name="body_fat_mass" value={formData.body_fat_mass} onChange={handleChange} placeholder="체지방량 (%)" />
+                <label htmlFor="body_fat_mass">체지방량 (kg)</label>
+                <input type="number" name="body_fat_mass" value={formData.body_fat_mass} onChange={handleChange} placeholder="체지방량 (kg)" />
               </FormGroup>
               <FormGroup>
-                <label htmlFor="skeletal_muscle_mass">골격근량 (%)</label>
-                <input type="number" name="skeletal_muscle_mass" value={formData.skeletal_muscle_mass} onChange={handleChange} placeholder="골격근량 (%)" />
+                <label htmlFor="skeletal_muscle_mass">골격근량 (kg)</label>
+                <input type="number" name="skeletal_muscle_mass" value={formData.skeletal_muscle_mass} onChange={handleChange} placeholder="골격근량 (kg)" />
               </FormGroup>
               <FormGroup>
                 <label htmlFor="purpose">운동 목적</label>
