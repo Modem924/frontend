@@ -143,6 +143,7 @@ export const addWorker = async (
 ) => {
   try {
     console.log("addworker api 호출");
+
     const response = await axiosInstance.post("/add_worker", {
       username,
       password,
@@ -229,7 +230,7 @@ export const addMembers = async (
     return response.data;
   } catch (error) {
     console.error(
-      "Error in addWorker API call:",
+      "Error in addMember API call:",
       error.response || error.message
     );
     throw error;
@@ -239,7 +240,7 @@ export const addMembers = async (
 export const deleteWorker = async (username) => {
   try {
     const response = await axiosInstance.post("/del_worker", { username });
-    console.log('try to delete: ', username);
+    console.log("try to delete: ", username);
     return response.data;
   } catch (error) {
     console.error("Error while deleting worker:", error);
