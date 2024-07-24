@@ -20,7 +20,6 @@ export default function ReportScreen() {
     const [loading, setLoading] = useState(true);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [result, setResult] = useState('');
 
     const theme = createTheme({
         palette: {
@@ -33,12 +32,11 @@ export default function ReportScreen() {
         }
     });
 
-    const [open, setOpen] = React.useState(false);
-
     useEffect(() => {
         console.log('Fetching data for userPK:', userPK);
         getMemberDetails(userPK)
             .then(data => {
+                console.log("call data: ", data);
                 setUserData(data);
                 setLoading(false);
             })
@@ -63,22 +61,9 @@ export default function ReportScreen() {
                 });
         }
     };
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-    
-        try {
-          const response = await axios.post('https://71nc4lk6kd.execute-api.ap-northeast-2.amazonaws.com/Integration/upload_report', {
-            user_id: userPK,
-          });
-          setResult(response.data.response);
-        } catch (error) {
-          console.error('Error fetching data', error);
-          setResult('데이터를 가져오는 중 오류가 발생했습니다.');
-        } finally {
-          setLoading(false);
-        }
+
+    const handleReport = () => {
+        setShowTypewriter(true);
     };
 
     const styles = {
@@ -238,25 +223,22 @@ export default function ReportScreen() {
                         </div>
                         <div style={styles.section_in_button}>
                             <Button variant="contained" color="skyblue" startIcon={<img src={deleteIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }} onClick={handleDelete}>DELETE</Button>
-                            <Button variant="contained" color="skyblue" onClick={handleSubmit} startIcon={<img src={reportIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>REPORT</Button>
+                            <Button variant="contained" color="skyblue" onClick={handleReport} startIcon={<img src={reportIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>REPORT</Button>
                         </div>
                     </div>
-                    {/* <div style={styles.section}> */}
-                        {/* Additional content can go here */}
-                    {/* </div> */}
                     <div style={styles.section}>
                         <TypoTitle input_text={userData?.username + " 님의 Report"} />
-                            <div>
-                                {loading && <Loader />}
-                                {result && !loading && (
+                        <div>
+                            {loading && <Loader />}
+                            {showTypewriter && userData?.hcReport && !loading && (
                                 <Result>
                                     <Typed
-                                    strings={[result]}
-                                    typeSpeed={30}
+                                        strings={[userData.hcReport]}
+                                        typeSpeed={30}
                                     />
                                 </Result>
-                                )}
-                            </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </ThemeProvider>
