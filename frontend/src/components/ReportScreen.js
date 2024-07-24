@@ -197,7 +197,7 @@ export default function ReportScreen() {
                 <div>
                     <TextField
                         id="name_input"
-                        label="Username"
+                        label="유저이름"
                         defaultValue={userData?.username || ''}
                         InputProps={{
                             readOnly: true,
@@ -206,7 +206,7 @@ export default function ReportScreen() {
                     />
                     <TextField
                         id="nickname_input"
-                        label="Nickname"
+                        label="성함"
                         defaultValue={userData?.userNickname || ''}
                         InputProps={{
                             readOnly: true,
@@ -215,7 +215,7 @@ export default function ReportScreen() {
                     />
                     <TextField
                         id="phone_number_input"
-                        label="Phone"
+                        label="개인전화번호"
                         defaultValue={userData?.userPhoneNumber || ''}
                         InputProps={{
                             readOnly: true,
@@ -224,7 +224,7 @@ export default function ReportScreen() {
                     />
                     <TextField
                         id="address_input"
-                        label="Address"
+                        label="주소"
                         defaultValue={userData?.userAddress || ''}
                         InputProps={{
                             readOnly: true,
