@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, TextField, Box, Modal, IconButton } from "@mui/material";
-import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
+import { Button, TextField, Box, Modal } from "@mui/material";
 import { getAttendance, addMembers, deleteUser } from "./api";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -29,7 +28,9 @@ const MemberScreen = () => {
     userPhoneNumber: "",
     userSignificant: "",
   });
-  const [sortModel, setSortModel] = useState([{ field: "userNickname", sort: "asc" }]);
+  const [sortModel, setSortModel] = useState([
+    { field: "userNickname", sort: "asc" },
+  ]);
   const [pageSize, setPageSize] = useState(10);
 
   const fetchData = async () => {
@@ -107,41 +108,16 @@ const MemberScreen = () => {
     }
   };
 
-  const handleSortClick = (field) => {
-    const isAsc = sortModel[0]?.sort === "asc";
-    setSortModel([{ field, sort: isAsc ? "desc" : "asc" }]);
-  };
-
-  const SortIcon = ({ direction }) => {
-    return direction === "asc" ? <ArrowUpward /> : <ArrowDownward />;
-  };
-
   const columns = [
     {
       field: "userNickname",
       headerName: "이름",
       width: 200,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span>이름</span>
-          <IconButton onClick={() => handleSortClick("userNickname")} size="small">
-            <SortIcon direction={sortModel[0]?.field === "userNickname" ? sortModel[0].sort : "asc"} />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "createDate",
       headerName: "계정 생성 날짜",
       width: 200,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span>계정 생성 날짜</span>
-          <IconButton onClick={() => handleSortClick("createDate")} size="small">
-            <SortIcon direction={sortModel[0]?.field === "createDate" ? sortModel[0].sort : "asc"} />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "actions",
@@ -169,7 +145,13 @@ const MemberScreen = () => {
   return (
     <div>
       <div style={{ height: 500, width: "100%" }}>
-        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "10px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "10px",
+          }}
+        >
           <Button
             onClick={handleOpen}
             sx={{
