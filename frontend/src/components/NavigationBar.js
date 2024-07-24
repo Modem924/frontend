@@ -14,6 +14,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { checkIn, checkOut } from './api';
 
 const NavigationBar = ({ grantedAuthorities }) => {
   const theme = useTheme();

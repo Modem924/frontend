@@ -182,6 +182,58 @@ export default function ReportScreen() {
         );
     }
 
+    function FormHc() {
+        return (
+            <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                }}
+                noValidate
+                autoComplete="off"
+            >
+                <div>
+                    <TextField
+                        id="height"
+                        label="키"
+                        defaultValue={userData?.hcHeight || ''}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="standard"
+                    />
+                    <TextField
+                        id="weight"
+                        label="몸무게"
+                        defaultValue={userData?.hcWeight || ''}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="standard"
+                    />
+                    <TextField
+                        id="fatmass"
+                        label="체지방량"
+                        defaultValue={userData?.hcBodyfatmass || ''}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="standard"
+                    />
+                    <TextField
+                        id="muscle"
+                        label="골격근량"
+                        defaultValue={userData?.hcSkeletalmusclemass || ''}
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="standard"
+                    />
+                </div>
+            </Box>
+        );
+    }
+
     const Result = styled.div`
         background-color: #DAE6F4;
         padding: 30px;
@@ -214,19 +266,23 @@ export default function ReportScreen() {
             <ThemeProvider theme={theme}>
                 <div style={styles.board}>
                     <div style={styles.section}>
-                        <TypoTitle input_text="INFO" />
+                        <TypoTitle input_text="개인정보" />
                         <div style={styles.section_in_info}>
                             <div style={styles.section_form}>
                                 <FormEx />
                             </div>
                         </div>
-                        <div style={styles.section_in_button}>
-                            <Button variant="contained" color="skyblue" startIcon={<img src={deleteIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }} onClick={handleDelete}>DELETE</Button>
-                            <Button variant="contained" color="skyblue" onClick={handleReport} startIcon={<img src={reportIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>REPORT</Button>
+                    </div>
+                    <div style={styles.section}>
+                        <TypoTitle input_text="상세정보" />
+                        <div style={styles.section_in_info}>
+                            <div style={styles.section_form}>
+                                <FormHc />
+                            </div>
                         </div>
                     </div>
                     <div style={styles.section}>
-                        <TypoTitle input_text={userData?.username + " 님의 Report"} />
+                        <TypoTitle input_text={userData?.userNickname + " 님의 Report"} />
                         <div>
                             {loading && <Loader />}
                             {showTypewriter && userData?.hcReport && !loading && (
@@ -238,6 +294,10 @@ export default function ReportScreen() {
                                 </Result>
                             )}
                         </div>
+                    </div>
+                    <div style={styles.section_in_button}>
+                            <Button variant="contained" color="skyblue" startIcon={<img src={deleteIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }} onClick={handleDelete}>DELETE</Button>
+                            <Button variant="contained" color="skyblue" onClick={handleReport} startIcon={<img src={reportIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white', margin: "3px" }}>REPORT</Button>
                     </div>
                 </div>
             </ThemeProvider>

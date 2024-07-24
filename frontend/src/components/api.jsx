@@ -248,6 +248,16 @@ export const deleteWorker = async (username) => {
   }
 };
 
+export const checkIn = async (jwtToken) => {
+  const response = await axiosInstance.post("/check-in", { jwtToken });
+  return response.data;
+};
+
+export const checkOut = async (jwtToken) => {
+  const response = await axiosInstance.post("/check-out", { jwtToken });
+  return response.data;
+};
+
 export const userLogout = () => {
   logout();
 };
