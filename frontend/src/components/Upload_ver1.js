@@ -332,8 +332,8 @@ const OcrComponent = () => {
                 <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="나이" />
               </FormGroup>
               <FormGroup>
-                <label htmlFor="total_body_water">체수분 (kg)</label>
-                <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (kg)" />
+                <label htmlFor="total_body_water">체수분 (L)</label>
+                <input type="number" name="total_body_water" value={formData.total_body_water} onChange={handleChange} placeholder="체수분 (L)" />
               </FormGroup>
               <FormGroup>
                 <label htmlFor="protein">단백질 (kg)</label>
