@@ -9,7 +9,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import reportIcon from '../util/report_gray.png';
 import deleteIcon from '../util/delete_gray.png';
-import axios from 'axios';
 import { ReactTyped as Typed } from 'react-typed';
 import styled from 'styled-components';
 
