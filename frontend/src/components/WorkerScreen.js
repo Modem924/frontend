@@ -50,6 +50,7 @@ const WorkerScreen = () => {
   const fetchData = async () => {
     try {
       const response = await getWorkers();
+      console.log("getWorkers response : ", response);
       const calculatedRows = response.map((row) => ({
         ...row,
         hours: calculateHours(row.worktimeStart, row.worktimeEnd),
@@ -83,9 +84,10 @@ const WorkerScreen = () => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    const newValue = name === 'workerSalary' ? (value === '' ? 0 : Number(value)) : value;
+    const newValue =
+      name === "workerSalary" ? (value === "" ? 0 : Number(value)) : value;
     setFormData({ ...formData, [name]: newValue });
-  };  
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -120,31 +122,42 @@ const WorkerScreen = () => {
   const handleAddOrUpdate = async () => {
     try {
       let imageUrl = formData.imageUrl;
-  
+
       if (imageFile) {
         imageUrl = await uploadImage(imageFile);
       }
-  
+      console.log("handleAddorUpdeate fomDate : ", formData);
+
       const updatedData = {
         ...formData,
         imageUrl,
-        workerSalary: Number(formData.workerSalary)
+        workerSalary: Number(formData.workerSalary),
       };
-  
+      const addData = {
+        username: formData.username,
+        password: formData.password,
+        userNickName: formData.userNickName,
+        userAddress: formData.userAddress,
+        userPhoneNumber: formData.userPhoneNumber,
+        workerSalary: formData.workerSalary,
+      };
+
       if (formData.id) {
         const updateData = {
           workerPK: formData.id,
           userNickname: formData.userNickName,
-          workerSalary: updatedData.workerSalary
+          workerSalary: formData.workerSalary,
         };
         await updateWorker(updateData);
       } else {
+        console.log("addworker 호출 전 addData :", addData);
         await addWorker(
-          updatedData.username,
-          updatedData.password,
-          updatedData.userNickName,
-          updatedData.userPhoneNumber,
-          updatedData.workerSalary
+          addData.username,
+          addData.password,
+          addData.userNickName,
+          addData.userAddress,
+          addData.userPhoneNumber,
+          addData.workerSalary
         );
       }
       await fetchData();
@@ -152,7 +165,7 @@ const WorkerScreen = () => {
     } catch (error) {
       console.error("Error adding/updating data:", error);
     }
-  };  
+  };
 
   const handleEditClick = (params) => {
     setFormData(params.row);
