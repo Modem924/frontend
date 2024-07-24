@@ -7,13 +7,8 @@ import Button from '@mui/material/Button';
 import Typewriter from 'typewriter-effect';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { Gauge } from '@mui/x-charts/Gauge';
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import clipBoardIcon from '../util/clipboard_gray.png';
 import reportIcon from '../util/report_gray.png';
-import deleteIcon from '../util/delete_gray.png'; // 새로운 삭제 아이콘 추가
-import Snackbar from '@mui/material/Snackbar';
-import CircularProgress from '@mui/material/CircularProgress';
+import deleteIcon from '../util/delete_gray.png';
 import axios from 'axios';
 import { ReactTyped as Typed } from 'react-typed';
 import styled from 'styled-components';
@@ -53,10 +48,6 @@ export default function ReportScreen() {
             });
     }, [userPK]);
 
-    const handleClick = () => {
-        setShowTypewriter(true);
-    };
-
     const handleDelete = () => {
         if (userData?.username) {
             deleteUser(userData.username)
@@ -72,20 +63,7 @@ export default function ReportScreen() {
                 });
         }
     };
-
-    const TypewriterEx = () => (
-        <Typewriter
-            options={{
-                strings: [temp_report],
-                deleteSpeed: Infinity,
-                autoStart: true,
-                loop: false,
-                deleteAll: 0,
-                delay: 10,
-            }}
-        />
-    );
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -101,19 +79,6 @@ export default function ReportScreen() {
         } finally {
           setLoading(false);
         }
-    };
-
-    const temp_report = 
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, \
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book. \
-        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. \
-        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,\
-        ";
-
-    const student_attendance = {
-        class_day: 365,
-        absence: 30,
     };
 
     const styles = {
@@ -138,9 +103,6 @@ export default function ReportScreen() {
             borderRadius: "8px",
             boxSizing: "border-box",
             margin: "0 auto",
-        },
-        section_pie: {
-            // Styles for pie chart can go here
         },
         section_in: {
             display: "flex",
@@ -236,33 +198,6 @@ export default function ReportScreen() {
         );
     }
 
-    function CLIP() {
-        const cliped = temp_report;
-        return (
-            <CopyToClipboard text={cliped} onCopy={() => alert('복사를 완료했습니다.')}>
-                <Button variant="contained" color="skyblue" startIcon={<img src={clipBoardIcon} alt="icon" style={{ width: 24, height: 24 }} />} sx={{ color: 'white' }}>
-                    CLIPBOARD
-                </Button>
-            </CopyToClipboard>
-        );
-    }
-
-    function Attchart() {
-        var attend = student_attendance.class_day - student_attendance.absence;
-        const rate = (attend / student_attendance.class_day) * 100;
-        return (
-            <Gauge width={100} height={100} value={rate} />
-        );
-    }
-
-    function CircularIndeterminate() {
-        return (
-            <Box sx={{ display: 'flex' }}>
-                <CircularProgress />
-            </Box>
-        );
-    }
-
     const Result = styled.div`
         background-color: #DAE6F4;
         padding: 30px;
@@ -299,9 +234,6 @@ export default function ReportScreen() {
                         <div style={styles.section_in_info}>
                             <div style={styles.section_form}>
                                 <FormEx />
-                            </div>
-                            <div style={styles.section_pie}>
-                                {/* Pie chart or other content can go here */}
                             </div>
                         </div>
                         <div style={styles.section_in_button}>
