@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import {
-  Button,
-  TextField,
-  Box,
-  Modal,
-  IconButton,
-  Avatar,
-} from "@mui/material";
-import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
+import { Button, TextField, Box, Modal, Avatar } from "@mui/material";
 import { getWorkers, addWorker, updateWorker, deleteWorker } from "./api";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -186,13 +178,8 @@ const WorkerScreen = () => {
     }
   };
 
-  const handleSortClick = (field) => {
-    const isAsc = sortModel[0]?.sort === "asc";
-    setSortModel([{ field, sort: isAsc ? "desc" : "asc" }]);
-  };
-
-  const SortIcon = ({ direction }) => {
-    return direction === "asc" ? <ArrowUpward /> : <ArrowDownward />;
+  const handleSortModelChange = (model) => {
+    setSortModel(model);
   };
 
   const columns = [
@@ -200,18 +187,6 @@ const WorkerScreen = () => {
       field: "id",
       headerName: "ID",
       width: 90,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>ID</span>
-          <IconButton onClick={() => handleSortClick("id")} size="small">
-            <SortIcon
-              direction={
-                sortModel[0]?.field === "id" ? sortModel[0].sort : "asc"
-              }
-            />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "userNickName",
@@ -223,86 +198,23 @@ const WorkerScreen = () => {
           {params.row.userNickName}
         </div>
       ),
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>성함</span>
-          <IconButton
-            onClick={() => handleSortClick("userNickName")}
-            size="small"
-          >
-            <SortIcon
-              direction={
-                sortModel[0]?.field === "userNickName"
-                  ? sortModel[0].sort
-                  : "asc"
-              }
-            />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "worktimeDay",
       headerName: "날짜",
       width: 150,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>날짜</span>
-          <IconButton
-            onClick={() => handleSortClick("worktimeDay")}
-            size="small"
-          >
-            <SortIcon
-              direction={
-                sortModel[0]?.field === "worktimeDay"
-                  ? sortModel[0].sort
-                  : "asc"
-              }
-            />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "hours",
       headerName: "일한 시간",
       type: "number",
       width: 150,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>일한 시간</span>
-          <IconButton onClick={() => handleSortClick("hours")} size="small">
-            <SortIcon
-              direction={
-                sortModel[0]?.field === "hours" ? sortModel[0].sort : "asc"
-              }
-            />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "workerSalary",
       headerName: "급여",
       type: "number",
       width: 150,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span>급여</span>
-          <IconButton
-            onClick={() => handleSortClick("workerSalary")}
-            size="small"
-          >
-            <SortIcon
-              direction={
-                sortModel[0]?.field === "workerSalary"
-                  ? sortModel[0].sort
-                  : "asc"
-              }
-            />
-          </IconButton>
-        </div>
-      ),
     },
     {
       field: "actions",
@@ -382,7 +294,7 @@ const WorkerScreen = () => {
           pagination
           sortingOrder={["asc", "desc"]}
           sortModel={sortModel}
-          disableColumnMenu={true}
+          onSortModelChange={handleSortModelChange}
           getRowId={(row) => row.id} // Use 'id' as the row ID
         />
 
