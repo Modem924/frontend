@@ -20,9 +20,36 @@ const NavigationBar = ({ grantedAuthorities }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [isCheckedIn, setIsCheckedIn] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const getJwtToken = () => localStorage.getItem('jwtToken');
+
+  const handleCheckIn = async () => {
+    const jwtToken = getJwtToken();
+    if (jwtToken) {
+      try {
+        await checkIn(jwtToken);
+        setIsCheckedIn(true);
+      } catch (error) {
+        console.error('Error checking in:', error);
+      }
+    }
+  };
+
+  const handleCheckOut = async () => {
+    const jwtToken = getJwtToken();
+    if (jwtToken) {
+      try {
+        await checkOut(jwtToken);
+        setIsCheckedIn(false);
+      } catch (error) {
+        console.error('Error checking out:', error);
+      }
+    }
   };
 
   const navItems = [
@@ -103,7 +130,8 @@ const NavigationBar = ({ grantedAuthorities }) => {
                     padding: '6px 12px',
                     borderRadius: '8px',
                     border: '1px solid #344889',
-                    '&:hover': { backgroundColor: '#e0e0e0' }
+                    '&:hover': { backgroundColor: '#e0e0e0' },
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   직원관리
@@ -120,11 +148,54 @@ const NavigationBar = ({ grantedAuthorities }) => {
                     padding: '6px 12px',
                     borderRadius: '8px',
                     border: '1px solid #344889',
-                    '&:hover': { backgroundColor: '#e0e0e0' }
+                    '&:hover': { backgroundColor: '#e0e0e0' },
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   회원관리
                 </Button>
+              </>
+            )}
+            {grantedAuthorities === "Worker" && (
+              <>
+                {!isCheckedIn && (
+                  <Button
+                    onClick={handleCheckIn}
+                    sx={{
+                      color: '#344889',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      textTransform: 'none',
+                      backgroundColor: 'white',
+                      padding: '6px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #344889',
+                      '&:hover': { backgroundColor: '#e0e0e0' },
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    체크인
+                  </Button>
+                )}
+                {isCheckedIn && (
+                  <Button
+                    onClick={handleCheckOut}
+                    sx={{
+                      color: '#344889',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      textTransform: 'none',
+                      backgroundColor: 'white',
+                      padding: '6px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #344889',
+                      '&:hover': { backgroundColor: '#e0e0e0' },
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    체크아웃
+                  </Button>
+                )}
               </>
             )}
             <Button
@@ -138,7 +209,8 @@ const NavigationBar = ({ grantedAuthorities }) => {
                 backgroundColor: '#344889',
                 padding: '6px 12px',
                 borderRadius: '8px',
-                '&:hover': { backgroundColor: '#555555' }
+                '&:hover': { backgroundColor: '#555555' },
+                whiteSpace: 'nowrap'
               }}
             >
               로그아웃
@@ -154,7 +226,7 @@ const NavigationBar = ({ grantedAuthorities }) => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: 'block', md: 'none' },

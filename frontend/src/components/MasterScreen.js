@@ -172,6 +172,16 @@ const MasterScreen = () => {
       "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06",
       "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"
     ];
+    
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
 
     const data = months.map(month => {
       const monthData = masterData.monthlyEduRevenueList.find(item => item.month === month);
@@ -191,9 +201,10 @@ const MasterScreen = () => {
     return (
       <BarChart
         dataset={dataset}
-        xAxis={[{ label: 'Month', scaleType: 'band', dataKey: 'month' }]}
-        yAxis={[{ label: '', dataKey: 'revenue' }]}
-        series={[{ dataKey: 'revenue', label: 'Revenue', valueFormatter, color: "#a1bbde" }]}
+        xAxis={[{ label: 'Month', scaleType: 'band', dataKey: 'month', 
+        colorMap: {type: 'ordinal', colors: ['#ccebc5', '#a8ddb5', '#7bccc4', '#4eb3d3', '#2b8cbe', '#08589e']}}]}
+        yAxis={[{ dataKey: 'revenue' }]}
+        series={[{ dataKey: 'revenue', valueFormatter, }]}
         layout="vertical"
         width={1000}
         height={400}
