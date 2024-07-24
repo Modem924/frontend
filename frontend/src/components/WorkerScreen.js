@@ -43,10 +43,10 @@ const WorkerScreen = () => {
     try {
       const response = await getWorkers();
       console.log("getWorkers response : ", response);
-      const calculatedRows = response.map((row) => ({
+      const calculatedRows = response.map((row, index) => ({
         ...row,
         hours: calculateHours(row.worktimeStart, row.worktimeEnd),
-        id: row.workerPk,
+        id: row.workerPk || index,
       }));
       setRows(calculatedRows);
     } catch (error) {
