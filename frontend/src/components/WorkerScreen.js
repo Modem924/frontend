@@ -104,7 +104,7 @@ const WorkerScreen = () => {
           },
         }
       );
-      return response.data.imgurl2; // 서버에서 반환된 URL
+      return response.data.imgurl2;
     } catch (error) {
       console.error("Error uploading file:", error.response.data);
       throw error;
@@ -160,7 +160,16 @@ const WorkerScreen = () => {
   };
 
   const handleEditClick = (params) => {
-    setFormData(params.row);
+    setFormData({
+      id: params.row.id,
+      username: params.row.username,
+      password: params.row.password,
+      userNickName: params.row.userNickName,
+      userAddress: params.row.userAddress,
+      userPhoneNumber: params.row.userPhoneNumber,
+      workerSalary: params.row.workerSalary,
+      imageUrl: params.row.imageUrl,
+    });
     setImagePreview(params.row.imageUrl);
     handleOpen();
   };
@@ -219,7 +228,7 @@ const WorkerScreen = () => {
     {
       field: "actions",
       headerName: "동작",
-      width: 200, // Increase the width to ensure buttons fit
+      width: 200,
       sortable: false,
       renderCell: (params) => (
         <>
@@ -240,7 +249,7 @@ const WorkerScreen = () => {
             수정
           </Button>
           <Button
-            onClick={() => handleDelete(params.row.id)} // Pass params.row.id instead of params
+            onClick={() => handleDelete(params.row.id)}
             sx={{
               width: "auto",
               backgroundColor: "#E57373",
@@ -295,7 +304,7 @@ const WorkerScreen = () => {
           sortingOrder={["asc", "desc"]}
           sortModel={sortModel}
           onSortModelChange={handleSortModelChange}
-          getRowId={(row) => row.id} // Use 'id' as the row ID
+          getRowId={(row) => row.id}
         />
 
         <Modal open={open} onClose={handleClose}>
