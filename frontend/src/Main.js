@@ -4,7 +4,6 @@ import {
   AppPaperScreen,
   LoginScreen,
   MasterScreen,
-  SigninScreen,
   ServiceScreen,
   SignupScreen,
   Logout,
@@ -21,7 +20,7 @@ import {
 
 const Main = ({ token, setToken, grantedAuthorities, setGrantedAuthorities }) => {
   const location = useLocation();
-  const hideNavbarPaths = ["/", "/signin", "/signupscreen", "/logout"];
+  const hideNavbarPaths = ["/", "/signupscreen", "/logout"];
 
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
 
@@ -39,7 +38,6 @@ const Main = ({ token, setToken, grantedAuthorities, setGrantedAuthorities }) =>
           }
         />
         <Route path="/master" element={<MasterScreen />} />
-        <Route path="/signin" element={<SigninScreen />} />
         <Route path="/service" element={<ServiceScreen />} />
         <Route path="/signupscreen" element={<SignupScreen />} />
         <Route path="/report/:userPK" element={<ReportScreen />} />
