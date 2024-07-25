@@ -12,14 +12,13 @@ const SignupScreen = () => {
   const [userAddress, setuserAddress] = useState("");
   const [userPhoneNumber, setuserPhoneNumber] = useState("");
   const profileImg = "";
-  const [userRole, setuserRole] = useState("");
   const [placeName, setplaceName] = useState("");
   const [placeType, setplaceType] = useState("");
 
   const navigate = useNavigate();
   //(username, password, userNickname, userAddress,userPhoneNumber,profileImg,userRole,placeName,placeType )
   const handleSignup = async (e) => {
-    e.preventDefault(); //기본 폼 제출 동작 막기
+    e.preventDefault();
     try {
       console.log("Sending login request...");
       console.log(id, password);
@@ -30,7 +29,6 @@ const SignupScreen = () => {
         userAddress,
         userPhoneNumber,
         profileImg,
-        userRole,
         placeName,
         placeType
       );
@@ -99,14 +97,6 @@ const SignupScreen = () => {
             value={userPhoneNumber}
             onChange={(e) => setuserPhoneNumber(e.target.value)}
             placeholder="개인 전화번호"
-          />
-        </div>
-        <div className="input-group">
-          <input
-            type="text"
-            value={userRole}
-            onChange={(e) => setuserRole(e.target.value)}
-            placeholder="직위"
           />
         </div>
         {/*placeName,placeType*/}

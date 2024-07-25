@@ -15,7 +15,6 @@ export const signup = async (
   userAddress,
   userPhoneNumber,
   profileImg,
-  userRole,
   placeName,
   placeType
 ) => {
@@ -27,7 +26,6 @@ export const signup = async (
     userAddress,
     userPhoneNumber,
     profileImg,
-    userRole,
     placeName,
     placeType,
   });
