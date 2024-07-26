@@ -198,7 +198,7 @@ const WorkerScreen = () => {
 
   const columns = [
     {
-      field: "workerPK", // Changed to workerPK
+      field: "workerPK",
       headerName: "ID",
       width: 90,
     },
@@ -254,7 +254,7 @@ const WorkerScreen = () => {
             수정
           </Button>
           <Button
-            onClick={() => handleDelete(params.row.workerPK)} // Changed to workerPK
+            onClick={() => handleDelete(params.row.workerPK)}
             sx={{
               width: "auto",
               backgroundColor: "#E57373",
