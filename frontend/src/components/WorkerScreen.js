@@ -26,7 +26,7 @@ const WorkerScreen = () => {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    id: "",
+    workerPk: "",
     username: "",
     password: "",
     userNickName: "",
@@ -36,23 +36,23 @@ const WorkerScreen = () => {
   });
   const [imagePreview, setImagePreview] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [sortModel, setSortModel] = useState([{ field: "id", sort: "asc" }]);
+  const [sortModel, setSortModel] = useState([{ field: "workerPk", sort: "asc" }]);
   const [pageSize, setPageSize] = useState(5);
 
   const fetchData = async () => {
     try {
       const response = await getWorkers();
       console.log("getWorkers response : ", response);
-      const calculatedRows = response.map((row, index) => ({
+      const calculatedRows = response.map((row) => ({
         ...row,
         hours: calculateHours(row.worktimeStart, row.worktimeEnd),
-        id: row.workerPk || index,
+        id: row.workerPK, // Use workerPK as the unique id
       }));
       setRows(calculatedRows);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchData();
@@ -61,7 +61,7 @@ const WorkerScreen = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setFormData({
-      id: "",
+      workerPk: "",
       username: "",
       password: "",
       userNickName: "",
@@ -80,6 +80,7 @@ const WorkerScreen = () => {
       name === "workerSalary" ? (value === "" ? 0 : Number(value)) : value;
     setFormData({ ...formData, [name]: newValue });
   };
+  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -114,35 +115,37 @@ const WorkerScreen = () => {
   const handleAddOrUpdate = async () => {
     try {
       let imageUrl = formData.imageUrl;
-
+    
       if (imageFile) {
         imageUrl = await uploadImage(imageFile);
       }
-      console.log("handleAddorUpdeate fomDate : ", formData);
-
+      console.log("handleAddOrUpdate formData : ", formData);
+    
       const updatedData = {
         ...formData,
         imageUrl,
         workerSalary: Number(formData.workerSalary),
       };
-      const addData = {
-        username: formData.username,
-        password: formData.password,
-        userNickName: formData.userNickName,
-        userAddress: formData.userAddress,
-        userPhoneNumber: formData.userPhoneNumber,
-        workerSalary: formData.workerSalary,
-      };
-
-      if (formData.id) {
+    
+      if (formData.workerPk !== "" && formData.workerPk !== null && formData.workerPk !== undefined) {
         const updateData = {
-          workerPK: formData.id,
+          workerPK: formData.workerPk,
           userNickname: formData.userNickName,
           workerSalary: formData.workerSalary,
+          imageUrl: formData.imageUrl,
         };
+        console.log("Updating worker with data:", updateData);
         await updateWorker(updateData);
       } else {
-        console.log("addworker 호출 전 addData :", addData);
+        const addData = {
+          username: formData.username,
+          password: formData.password,
+          userNickName: formData.userNickName,
+          userAddress: formData.userAddress,
+          userPhoneNumber: formData.userPhoneNumber,
+          workerSalary: formData.workerSalary,
+        };
+        console.log("Adding worker with data:", addData);
         await addWorker(
           addData.username,
           addData.password,
@@ -157,11 +160,11 @@ const WorkerScreen = () => {
     } catch (error) {
       console.error("Error adding/updating data:", error);
     }
-  };
+  };  
 
   const handleEditClick = (params) => {
     setFormData({
-      id: params.row.id,
+      workerPk: params.row.workerPK,
       username: params.row.username,
       password: params.row.password,
       userNickName: params.row.userNickName,
@@ -173,19 +176,21 @@ const WorkerScreen = () => {
     setImagePreview(params.row.imageUrl);
     handleOpen();
   };
+  
 
   const handleDelete = async (id) => {
     try {
-      const rowToDelete = rows.find((row) => row.id === id);
+      const rowToDelete = rows.find((row) => row.workerPK === id);
       if (rowToDelete) {
         console.log(rowToDelete);
         await deleteWorker(rowToDelete.username);
-        setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+        setRows((prevRows) => prevRows.filter((row) => row.workerPK !== id));
       }
     } catch (error) {
       console.error("Error deleting data:", error);
     }
   };
+  
 
   const handleSortModelChange = (model) => {
     setSortModel(model);
@@ -193,7 +198,7 @@ const WorkerScreen = () => {
 
   const columns = [
     {
-      field: "id",
+      field: "workerPK", // Changed to workerPK
       headerName: "ID",
       width: 90,
     },
@@ -249,7 +254,7 @@ const WorkerScreen = () => {
             수정
           </Button>
           <Button
-            onClick={() => handleDelete(params.row.id)}
+            onClick={() => handleDelete(params.row.workerPK)} // Changed to workerPK
             sx={{
               width: "auto",
               backgroundColor: "#E57373",
@@ -267,7 +272,7 @@ const WorkerScreen = () => {
         </>
       ),
     },
-  ];
+  ];  
 
   return (
     <div>
@@ -304,12 +309,15 @@ const WorkerScreen = () => {
           sortingOrder={["asc", "desc"]}
           sortModel={sortModel}
           onSortModelChange={handleSortModelChange}
-          getRowId={(row) => row.id}
+          getRowId={(row) => row.workerPK}
         />
 
-        <Modal open={open} onClose={handleClose}>
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
           <Box sx={style}>
-            <h2>{formData.id ? "Edit Worker" : "Add Worker"}</h2>
+            <h2>{formData.workerPk !== "" && formData.workerPk !== null && formData.workerPk !== undefined ? "Edit Worker" : "Add Worker"}</h2>
             <TextField
               label="유저이름"
               name="username"
@@ -386,7 +394,7 @@ const WorkerScreen = () => {
                 "&:hover": { backgroundColor: "#344889" },
               }}
             >
-              {formData.id ? "업데이트" : "추가"}
+              {formData.workerPk !== "" && formData.workerPk !== null && formData.workerPk !== undefined ? "업데이트" : "추가"}
             </Button>
           </Box>
         </Modal>
